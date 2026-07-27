@@ -3,6 +3,7 @@ package com.example.HealthcareEquipmentSystem.Controllers;
 import com.example.HealthcareEquipmentSystem.DTO.Requests.ReservationRequestDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.ReservationResponseDTO;
 import com.example.HealthcareEquipmentSystem.Services.ReservationService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class ReservationController {
     }
 
     @PostMapping("/{staffId}")
-    public ResponseEntity<ReservationResponseDTO> createReservation(@RequestBody ReservationRequestDTO reservationRequestDTO,
+    public ResponseEntity<ReservationResponseDTO> createReservation( @Valid @RequestBody ReservationRequestDTO reservationRequestDTO,
             @PathVariable Integer staffId) {
         return ResponseEntity.ok(reservationService.createReservation(reservationRequestDTO, staffId));
     }

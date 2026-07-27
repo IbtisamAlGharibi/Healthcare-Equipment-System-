@@ -3,6 +3,7 @@ package com.example.HealthcareEquipmentSystem.Controllers;
 import com.example.HealthcareEquipmentSystem.DTO.Requests.LaboratoryStaffRequestDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.LaboratoryStaffResponseDTO;
 import com.example.HealthcareEquipmentSystem.Services.LaboratoryStaffService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class LaboratoryStaffController {
 
     // Add a new laboratory staff
     @PostMapping
-    public ResponseEntity<LaboratoryStaffResponseDTO> addLaboratoryStaff(@RequestBody LaboratoryStaffRequestDTO laboratoryStaffRequestDTO) {
+    public ResponseEntity<LaboratoryStaffResponseDTO> addLaboratoryStaff( @Valid @RequestBody LaboratoryStaffRequestDTO laboratoryStaffRequestDTO) {
         return ResponseEntity.ok(laboratoryStaffService.addLaboratoryStaff(laboratoryStaffRequestDTO));
     }
 
