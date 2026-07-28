@@ -1,80 +1,78 @@
 package com.example.HealthcareEquipmentSystem.Controllers;
 
+import com.example.HealthcareEquipmentSystem.DTO.Requests.LaboratoryRequestDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Requests.MaintenanceRequestDTO;
+import com.example.HealthcareEquipmentSystem.DTO.Responses.EquipmentResponseDTO;
+import com.example.HealthcareEquipmentSystem.DTO.Responses.LaboratoryResponseDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.MaintenanceResponseDTO;
-import com.example.HealthcareEquipmentSystem.Entities.Maintenance;
+import com.example.HealthcareEquipmentSystem.Entities.*;
+import com.example.HealthcareEquipmentSystem.Repositories.EquipmentRepository;
+import com.example.HealthcareEquipmentSystem.Repositories.LaboratoryRepository;
 import com.example.HealthcareEquipmentSystem.Repositories.MaintenanceRepository;
+import com.example.HealthcareEquipmentSystem.Services.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/report")
 public class ReportController {
-    private EquipmentRepository equipmentRepository;
-    private MaintenanceRepository maintenanceRepository;
-    private LaboratoryRepository laboratoryRepository;
+    private ReportService reportService;
 
     @Autowired
-    public ReportController(EquipmentRepository equipmentRepository, MaintenanceRepository maintenanceRepository, LaboratoryRepository laboratoryRepository){
-        this.equipmentRepository=equipmentRepository;
-        this.maintenanceRepository=maintenanceRepository;
-    this.laboratoryRepository=laboratoryRepository;
+    public ReportController(ReportService reportService){
+        this.reportService=reportService;
     }
 
-    @GetMapping("/equipment/{status}")
-    public ResponseEntity<List<EquipmentResponseDTO>> getEquipmentReport(@PathVariable String status) {
-        List<Equipment> filteredEquipment = new ArrayList<>();
-
-        if ("Available".equalsIgnoreCase(status)) {
-            filteredEquipment = equipmentRepository.findByStatus("Available");
-        } else if ("Reserved".equalsIgnoreCase(status)) {
-            filteredEquipment = equipmentRepository.findByStatus("Reserved");
-        } else if ("Maintenance".equalsIgnoreCase(status)) {
-            filteredEquipment = equipmentRepository.findByStatus("Maintenance");
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-
-        List<EquipmentResponseDTO> responseDTOs = new ArrayList<>();
-        for (Equipment eq : filteredEquipment) {
-            EquipmentResponseDTO dto = new EquipmentResponseDTO();
-            dto.setId(eq.getId());
-            dto.setName(eq.getName());
-            dto.setStatus(eq.getStatus());
-            responseDTOs.add(dto);
-        }
-        return ResponseEntity.ok(responseDTOs);
+    @GetMapping("/equipment/available-count")
+    public ResponseEntity<Integer> getAvailableEquipmentCount() {
+        Integer count = reportService.availableEquipment();
+        return ResponseEntity.ok(count);
     }
 
-    @PostMapping("/custom-range")
-    public ResponseEntity<List<MaintenanceResponseDTO>> getMaintenanceByDateRange(@RequestBody MaintenanceRequestDTO requestDTO) {
-        List<Maintenance> rawMaintenance = maintenanceRepository.findByMaintenanceDateBetween(requestDTO.getStartDate(), requestDTO.getEndDate());
-        List<MaintenanceResponseDTO> responseDTOs = new ArrayList<>();
-        for (Maintenance m : rawMaintenance) {
-            MaintenanceResponseDTO dto = new MaintenanceResponseDTO();
-            dto.setId(m.getId());
-            dto.setEquipmentId(m.getEquipment().getName());
-            dto.setMaintenanceDate(m.getMaintenanceDate());
-            dto.setStatus(m.getStatus());
-            responseDTOs.add(dto);
-        }
-        return ResponseEntity.ok(responseDTOs);
+    @GetMapping("/equipment/reserved-count")
+    public ResponseEntity<Integer> getReservedEquipmentCount() {
+        Integer count = reportService.reservedEquipment();
+        return ResponseEntity.ok(count);
     }
 
-    @GetMapping("/laboratoryEquipmentCount")
-    public ResponseEntity<List<LaboratoryResponseDTO>> getLaboratoryEquipmentCountReport() {
-        List<Laboratory> laboratories = laboratoryRepository.findAll();
-        List<Laboratory> processedLaboratories = new ArrayList<>();
+    @GetMapping("/equipment/maintenance-count")
+    public ResponseEntity<Integer> getMaintenanceEquipmentCount() {
+        Integer count = reportService.maintenanceEquipment();
+        return ResponseEntity.ok(count);
+    }
 
-        for (Laboratory lab : laboratories) {
-            if (lab.getEquipmentList() != null) {
-                processedLaboratories.add(lab);
-            }
-        }
-        return ResponseEntity.ok(processedLaboratories);
+    @GetMapping("/laboratory/equipment")
+    public ResponseEntity<List<Laboratory>> getEquipmentPerLaboratory() {
+        List<Laboratory> laboratories = reportService.equipmentPerLaboratory();
+        return ResponseEntity.ok(laboratories);
+    }
+
+    @GetMapping("/laboratory/reservations")
+    public ResponseEntity<List<Laboratory>> getReservationsPerLaboratory() {
+        List<Laboratory> laboratories = reportService.reservationsPerLaboratory();
+        return ResponseEntity.ok(laboratories);
+    }
+
+    @GetMapping("/staff/top-reservations")
+    public ResponseEntity<List<LaboratoryStaff>> getStaffWithMostReservations() {
+        List<LaboratoryStaff> staffList = reportService.staffWithMostReservations();
+        return ResponseEntity.ok(staffList);
+    }
+
+    @GetMapping("/maintenance/repaired-this-month")
+    public ResponseEntity<List<Maintenance>> getEquipmentRepairedThisMonth(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
+        List<Maintenance> maintenanceList = reportService.equipmentRepairedThisMonth(startDate, endDate);
+        return ResponseEntity.ok(maintenanceList);
+    }
+
+    @GetMapping("/technician/top-maintenance")
+    public ResponseEntity<List<MaintenanceTechnician>> getTechnicianWithMostCompletedMaintenance() {
+        List<MaintenanceTechnician> technicians = reportService.technicianWithMostCompletedMaintenance();
+        return ResponseEntity.ok(technicians);
     }
 }

@@ -20,6 +20,12 @@ public interface LaboratoryRepository extends JpaRepository<Laboratory, Integer>
 
     @Query("select l from Laboratory l where l.location = :location and l.isActive = true")
     List<Laboratory> findByLocation(@Param("location") String location);
+
+    //new
+    @Query("SELECT l.name, COUNT(e)FROM Laboratory lLEFT JOIN l.equipment e GROUP BY l.name")
+    List<Laboratory> equipmentPerLaboratory();
+    @Query("SELECT l.name, COUNT(r) FROM Laboratory l LEFT JOIN l.reservations r GROUP BY l.name")
+    List<Laboratory> reservationsPerLaboratory();
 }
 
 
