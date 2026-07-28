@@ -23,18 +23,21 @@ public class TechnicianService {
     public TechnicianResponseDTO addTechnician(TechnicianRequestDTO dto) {
 
         MaintenanceTechnician technician = TechnicianRequestDTO.toEntity(dto);
+        technician.setIsActive(true);
         MaintenanceTechnician savedTechnician = technicianRepository.save(technician);
         return TechnicianResponseDTO.fromEntity(savedTechnician);
     }
 
     // Update Technician
     public TechnicianResponseDTO updateTechnician(Integer id, TechnicianRequestDTO dto) {
-
-        MaintenanceTechnician technician = technicianRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Technician not found with id: " + id));
+        if (!technicianRepository.existsById(id)) {
+            //throw new EntityNotFoundException("Technician not found with id: " + id);
+        }
+        MaintenanceTechnician technician = technicianRepository.findById(id).get();
         technician.setName(dto.getName());
         technician.setPhone(dto.getPhone());
         technician.setSpecialization(dto.getSpecialization());
-        technician.setIsActive(dto.getIsActive());
+        //technician.setIsActive(dto.getIsActive());
         MaintenanceTechnician updatedTechnician = technicianRepository.save(technician);
         return TechnicianResponseDTO.fromEntity(updatedTechnician);
     }
@@ -42,9 +45,11 @@ public class TechnicianService {
     // Delete Technician
     public void deleteTechnician(Integer id) {
         if (!technicianRepository.existsById(id)) {
-            throw new EntityNotFoundException("Technician not found with id: " + id);
+            //throw new EntityNotFoundException("Technician not found with id: " + id);
         }
-        technicianRepository.deleteById(id);
+        MaintenanceTechnician technician = technicianRepository.findById(id).get();
+        technician.setIsActive(false);
+        technicianRepository.save(technician);
     }
 
     // Get All Technicians
@@ -54,7 +59,6 @@ public class TechnicianService {
         for (MaintenanceTechnician technician : technicians) {
             response.add(TechnicianResponseDTO.fromEntity(technician));
         }
-
         return response;
     }
 
@@ -91,7 +95,7 @@ public class TechnicianService {
 
     //Get Technician By ID
     public TechnicianResponseDTO getTechnicianById(Integer id) {
-        MaintenanceTechnician technician = technicianRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Technician not found with id: " + id));
+        MaintenanceTechnician technician = technicianRepository.findById(id).get();
         return TechnicianResponseDTO.fromEntity(technician);
     }
 }

@@ -23,7 +23,7 @@ public class Maintenance {
     @JoinColumn(name = "tech_id")
     private MaintenanceTechnician technician;
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "equip_id")
-    private Equipment equipment;*/
+    private Equipment equipment;
 }
