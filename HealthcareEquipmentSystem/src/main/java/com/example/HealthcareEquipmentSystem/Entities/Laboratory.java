@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Laboratory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
