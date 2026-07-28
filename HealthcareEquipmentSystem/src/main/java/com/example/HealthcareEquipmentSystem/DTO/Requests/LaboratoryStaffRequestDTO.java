@@ -17,6 +17,7 @@ public class LaboratoryStaffRequestDTO {
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
     private String email;
+    @NotBlank(message = "Phone is required")
     @Pattern(regexp = "^\\+?[0-9]{8,15}$", message = "Phone number must contain 8-15 digits")
     private String phone;
     @NotBlank(message = "Department is required")
