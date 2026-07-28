@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TechnicianRequestDTO {
-    private Integer id;
     @NotBlank(message = "Name cannot be blank")
     private String name;
     @NotBlank(message = "Phone cannot be blank")
@@ -23,13 +22,12 @@ public class TechnicianRequestDTO {
     /*@NotNull(message = "Active status must be specified")
     private Boolean isActive;*/
 
-    public static MaintenanceTechnician toEntity(TechnicianRequestDTO entity){
+    public static MaintenanceTechnician toEntity(TechnicianRequestDTO dto){
         MaintenanceTechnician technician=new MaintenanceTechnician();
-        technician.setId(entity.getId());
-        technician.setName(entity.getName());
-        technician.setPhone(entity.getPhone());
-        technician.setSpecialization(entity.getSpecialization());
-        //technician.setIsActive(entity.getIsActive());
+        technician.setName(dto.getName());
+        technician.setPhone(dto.getPhone());
+        technician.setSpecialization(dto.getSpecialization());
+        //technician.setIsActive(dto.getIsActive());
 
         return technician;
     }

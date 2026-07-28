@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MaintenanceRequestDTO {
-    private Integer id;
     private LocalDate maintenanceDate;
     @NotBlank(message = "Description Can't Be Empty")
     private String description;
@@ -25,14 +24,13 @@ public class MaintenanceRequestDTO {
     @NotNull(message = "Equipment ID is required")
     private Integer equipmentId;
 
-    public static Maintenance toEntity(MaintenanceRequestDTO entity){
+    public static Maintenance toEntity(MaintenanceRequestDTO dto){
         Maintenance maintenance=new Maintenance();
-        maintenance.setId(entity.getId());
-        maintenance.setMaintenanceDate(entity.getMaintenanceDate());
-        maintenance.setDescription(entity.getDescription());
-        maintenance.setStatus(entity.getStatus());
-        maintenance.setTechnicianId(entity.getTechnicianId());
-        maintenance.setEquipmentId(entity.getEquipmentId());
+        maintenance.setMaintenanceDate(dto.getMaintenanceDate());
+        maintenance.setDescription(dto.getDescription());
+        maintenance.setStatus(dto.getStatus());
+        maintenance.setTechnicianId(dto.getTechnicianId());
+        maintenance.setEquipmentId(dto.getEquipmentId());
 
         return maintenance;
     }
