@@ -47,20 +47,20 @@ public class ReportController {
     }
 
     @GetMapping("/laboratory/equipment")
-    public ResponseEntity<List<Object[]>> getEquipmentPerLaboratory() {
-        List<Object[]> laboratories = reportService.equipmentPerLaboratory();
+    public ResponseEntity<List<Equipment>> getEquipmentPerLaboratory() {
+        List<Equipment> laboratories = reportService.equipmentPerLaboratory();
         return ResponseEntity.ok(laboratories);
     }
 
     @GetMapping("/laboratory/reservations")
-    public ResponseEntity<List<Object[]>> getReservationsPerLaboratory() {
-        List<Object[]> laboratories = reportService.reservationsPerLaboratory();
+    public ResponseEntity<List<Reservation>> getReservationsPerLaboratory() {
+        List<Reservation> laboratories = reportService.reservationsPerLaboratory();
         return ResponseEntity.ok(laboratories);
     }
 
     @GetMapping("/staff/top-reservations")
-    public ResponseEntity<List<Object[]>> getStaffWithMostReservations() {
-        List<Object[]> staffList = reportService.staffWithMostReservations();
+    public ResponseEntity<List<Reservation>> getStaffWithMostReservations() {
+        List<Reservation> staffList = reportService.staffWithMostReservations();
         return ResponseEntity.ok(staffList);
     }
 
