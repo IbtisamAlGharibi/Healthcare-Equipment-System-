@@ -54,7 +54,6 @@ public class ReportController {
     public ResponseEntity<List<MaintenanceResponseDTO>> getMaintenanceByDateRange(@RequestBody MaintenanceRequestDTO requestDTO) {
         List<Maintenance> rawMaintenance = maintenanceRepository.findByMaintenanceDateBetween(requestDTO.getStartDate(), requestDTO.getEndDate());
         List<MaintenanceResponseDTO> responseDTOs = new ArrayList<>();
-
         for (Maintenance m : rawMaintenance) {
             MaintenanceResponseDTO dto = new MaintenanceResponseDTO();
             dto.setId(m.getId());
@@ -71,10 +70,8 @@ public class ReportController {
         List<Laboratory> laboratories = laboratoryRepository.findAll();
         List<Laboratory> processedLaboratories = new ArrayList<>();
 
-        // Using a for loop to iterate over real Laboratory entities
         for (Laboratory lab : laboratories) {
             if (lab.getEquipmentList() != null) {
-                // Performing operations directly on the real entity object
                 processedLaboratories.add(lab);
             }
         }
