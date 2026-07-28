@@ -1,6 +1,7 @@
 package com.example.HealthcareEquipmentSystem.Repositories;
 
 import com.example.HealthcareEquipmentSystem.Entities.Equipment;
+import com.example.HealthcareEquipmentSystem.Entities.LaboratoryStaff;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,6 +23,10 @@ public interface EquipmentRepository extends JpaRepository<Equipment, Integer>  
 
     @Query("select e from Equipment e where e.status = 'Available' and e.isActive =:true")
     List<Equipment> getAvailableEquipment();
+
+    //new
+    @Query("SELECT COUNT(e) FROM Equipment e WHERE e.status = status")
+    Integer countByStatus(@Param("status") String status);
 }
 
 

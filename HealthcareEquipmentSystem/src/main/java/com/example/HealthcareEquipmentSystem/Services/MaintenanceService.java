@@ -2,8 +2,10 @@ package com.example.HealthcareEquipmentSystem.Services;
 
 import com.example.HealthcareEquipmentSystem.DTO.Requests.MaintenanceRequestDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.MaintenanceResponseDTO;
+import com.example.HealthcareEquipmentSystem.Entities.Equipment;
 import com.example.HealthcareEquipmentSystem.Entities.Maintenance;
 import com.example.HealthcareEquipmentSystem.Entities.MaintenanceTechnician;
+import com.example.HealthcareEquipmentSystem.Repositories.EquipmentRepository;
 import com.example.HealthcareEquipmentSystem.Repositories.MaintenanceRepository;
 import com.example.HealthcareEquipmentSystem.Repositories.TechnicianRepository;
 import org.springframework.beans.factory.annotation.Autowired;
