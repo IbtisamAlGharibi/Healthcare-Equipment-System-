@@ -9,10 +9,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface MaintenanceRepository extends JpaRepository<Maintenance, Integer> {
-    @Query("SELECT M FROM MaintenanceTechnicia M WHERE M.specialization= :specialization")
-    List<Maintenance> findByStatus(String status);
-    List<Maintenance> findByTechnicianId(Integer id);
-    List<Maintenance> findByEquipmentId(Integer id);
+    @Query("SELECT M FROM Maintenance M WHERE M.status= :status")
+    List<Maintenance> findByStatus(@Param("status") String status);
+    @Query("SELECT M FROM Maintenance M WHERE M.technician.id= :id")
+    List<Maintenance> findByTechnicianId(@Param("id") Integer id);
+    @Query("SELECT M FROM Maintenance M WHERE M.equipment.id= :id")
+    List<Maintenance> findByEquipmentId(@Param("id") Integer id);
     @Query("SELECT M FROM Maintenance M WHERE M.maintenanceDate BETWEEN :startDate AND :endDate")
     List<Maintenance> findMaintenanceBetweenDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }
