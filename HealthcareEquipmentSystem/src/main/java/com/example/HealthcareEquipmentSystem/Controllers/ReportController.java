@@ -47,20 +47,20 @@ public class ReportController {
     }
 
     @GetMapping("/laboratory/equipment")
-    public ResponseEntity<List<Laboratory>> getEquipmentPerLaboratory() {
-        List<Laboratory> laboratories = reportService.equipmentPerLaboratory();
+    public ResponseEntity<List<Object[]>> getEquipmentPerLaboratory() {
+        List<Object[]> laboratories = reportService.equipmentPerLaboratory();
         return ResponseEntity.ok(laboratories);
     }
 
     @GetMapping("/laboratory/reservations")
-    public ResponseEntity<List<Laboratory>> getReservationsPerLaboratory() {
-        List<Laboratory> laboratories = reportService.reservationsPerLaboratory();
+    public ResponseEntity<List<Object[]>> getReservationsPerLaboratory() {
+        List<Object[]> laboratories = reportService.reservationsPerLaboratory();
         return ResponseEntity.ok(laboratories);
     }
 
     @GetMapping("/staff/top-reservations")
-    public ResponseEntity<List<LaboratoryStaff>> getStaffWithMostReservations() {
-        List<LaboratoryStaff> staffList = reportService.staffWithMostReservations();
+    public ResponseEntity<List<Object[]>> getStaffWithMostReservations() {
+        List<Object[]> staffList = reportService.staffWithMostReservations();
         return ResponseEntity.ok(staffList);
     }
 
@@ -71,8 +71,8 @@ public class ReportController {
     }
 
     @GetMapping("/technician/top-maintenance")
-    public ResponseEntity<List<MaintenanceTechnician>> getTechnicianWithMostCompletedMaintenance() {
-        List<MaintenanceTechnician> technicians = reportService.technicianWithMostCompletedMaintenance();
+    public ResponseEntity<List<Object[]>> getTechnicianWithMostCompletedMaintenance() {
+        List<Object[]> technicians = reportService.technicianWithMostCompletedMaintenance();
         return ResponseEntity.ok(technicians);
     }
 }
