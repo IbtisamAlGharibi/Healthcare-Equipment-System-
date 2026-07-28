@@ -1,53 +1,51 @@
 package com.example.HealthcareEquipmentSystem.Controllers;
-import com.example.HealthcareEquipmentSystem.DTO.Requests.EquipmentRequestDTO;
-import com.example.HealthcareEquipmentSystem.DTO.Responses.EquipmentResponseDTO;
-import com.example.HealthcareEquipmentSystem.Services.EquipmentService;
+import com.example.HealthcareEquipmentSystem.DTO.Requests.LaboratoryRequestDTO;
+import com.example.HealthcareEquipmentSystem.DTO.Responses.LaboratoryResponseDTO;
+import com.example.HealthcareEquipmentSystem.Services.LaboratoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("/laboratories")
+@RequestMapping("/api/laboratories")
 public class LaboratoryController {
-    EquipmentService equipmentService;
-
+    LaboratoryService laboratoryService;
     @Autowired
-    public void EquipmentController(EquipmentService equipmentService) {
-        this.equipmentService = equipmentService;
+    public LaboratoryController(LaboratoryService laboratoryService) {
+        this.laboratoryService = laboratoryService;
+    }
+    @PostMapping("/add")
+    public LaboratoryResponseDTO addLaboratory(@Valid @RequestBody LaboratoryRequestDTO laboratoryRequestDTO) {
+        return laboratoryService.addLaboratory(laboratoryRequestDTO);
     }
 
-    @PostMapping
-    public EquipmentResponseDTO addEquipment(@RequestBody EquipmentRequestDTO equipmentRequestDTO) {
-        return equipmentService.addEquipment(equipmentRequestDTO);
+    @PutMapping("/update/{id}")
+    public LaboratoryResponseDTO updateLaboratory(@PathVariable Integer id, @RequestBody LaboratoryRequestDTO laboratoryRequestDTO) {
+        return laboratoryService.updateLaboratory(id, laboratoryRequestDTO);
     }
 
-    @PutMapping("/{id}")
-    public EquipmentResponseDTO updateEquipment(@PathVariable Integer id, @RequestBody EquipmentRequestDTO equipmentRequestDTO) {
-        return equipmentService.updateEquipment(id, equipmentRequestDTO);
+    @DeleteMapping("/delete/{id}")
+    public void deleteLaboratory(@PathVariable Integer id) {
+        laboratoryService.deleteLaboratory(id);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteEquipment(@PathVariable Integer id) {
-        equipmentService.deleteEquipment(id);
+    @GetMapping("/get/{id}")
+    public LaboratoryResponseDTO getLaboratoryById(@PathVariable Integer id) {
+        return laboratoryService.getLaboratoryById(id);
     }
 
-    @PutMapping("/{id}/status")
-    public EquipmentResponseDTO changeStatus(@PathVariable Integer id, @RequestParam String status) {
-        return equipmentService.changeStatus(id, status);
+    @GetMapping("/all")
+    public List<LaboratoryResponseDTO> getAllLaboratories() {
+        return laboratoryService.getAllLaboratories();
+    }
+    @GetMapping("/get-by-name")
+    public LaboratoryResponseDTO getLaboratoryByName(@RequestParam String name) {
+        return laboratoryService.getLaboratoryByName(name);
     }
 
-    @GetMapping
-    public List<EquipmentResponseDTO> getAllEquipment() {
-        return equipmentService.getAllEquipment();
-    }
-
-    @GetMapping("/available")
-    public List<EquipmentResponseDTO> getAvailableEquipment() {
-        return equipmentService.getAvailableEquipment();
-    }
-
-    @GetMapping("/{id}")
-    public EquipmentResponseDTO getEquipmentById(@PathVariable Integer id) {
-        return equipmentService.getEquipmentById(id);
+    @GetMapping("/get-by-location")
+    public List<LaboratoryResponseDTO> getLaboratoryByLocation(@RequestParam String location) {
+        return laboratoryService.getLaboratoryByLocation(location);
     }
 }

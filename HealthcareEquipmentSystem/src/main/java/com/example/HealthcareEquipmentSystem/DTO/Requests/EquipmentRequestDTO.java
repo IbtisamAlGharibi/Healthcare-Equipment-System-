@@ -13,8 +13,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EquipmentRequestDTO {
-
-    private Integer id;
     @NotBlank
     private String name;
     @NotBlank
@@ -25,13 +23,13 @@ public class EquipmentRequestDTO {
     private LocalDate purchaseDate;
     @NotNull
     private Boolean isActive;
+    @NotNull(message = "Laboratory ID is required")
+    private Integer laboratory_id;
 
     public static Equipment toEntity(EquipmentRequestDTO equipmentRequestDTO){
         Equipment equipment = new Equipment();
         equipment.setName(equipmentRequestDTO.getName());
-        equipment.setId(equipmentRequestDTO.getId());
         equipment.setSerialNumber(equipmentRequestDTO.getSerialNumber());
-        equipment.setIsActive(equipmentRequestDTO.getIsActive());
         equipment.setPurchaseDate(equipmentRequestDTO.getPurchaseDate());
 
         return equipment;

@@ -3,6 +3,7 @@ package com.example.HealthcareEquipmentSystem.Controllers;
 import com.example.HealthcareEquipmentSystem.DTO.Requests.EquipmentRequestDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.EquipmentResponseDTO;
 import com.example.HealthcareEquipmentSystem.Services.EquipmentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class EquipmentController {
 
 
     @PostMapping
-    public EquipmentResponseDTO addEquipment(@RequestBody EquipmentRequestDTO equipmentRequestDTO) {
+    public EquipmentResponseDTO addEquipment(@Valid @RequestBody EquipmentRequestDTO equipmentRequestDTO) {
         return equipmentService.addEquipment(equipmentRequestDTO);
     }
 

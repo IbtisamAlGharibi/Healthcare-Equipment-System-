@@ -11,28 +11,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LaboratoryRequestDTO {
 
-    private Integer id;
-   @NotBlank
+    @NotBlank(message = "Laboratory name is required")
     private String name;
-    @NotBlank
+
+    @NotBlank(message = "Location is required")
     private String location;
-    @NotBlank
+
+   @NotBlank(message = "Description is required")
     private String description;
-    @NotNull
-    private Boolean isActive;
 
+   @NotNull(message = "Active status is required")
+   private Boolean isActive;
 
-    public static Laboratory toEntity(LaboratoryRequestDTO laboratoryRequestDTO){
+  public static Laboratory toEntity(LaboratoryRequestDTO laboratoryRequestDTO) {
 
-        Laboratory laboratory = new Laboratory();
-        laboratory.setName(laboratoryRequestDTO.getName());
-        laboratory.setDescription(laboratoryRequestDTO.getDescription());
-        laboratory.setLocation(laboratoryRequestDTO.getLocation());
-        laboratory.setIsActive(laboratoryRequestDTO.getIsActive());
+     Laboratory laboratory = new Laboratory();
+     laboratory.setName(laboratoryRequestDTO.getName());
+     laboratory.setLocation(laboratoryRequestDTO.getLocation());
+     laboratory.setDescription(laboratoryRequestDTO.getDescription());
 
-        return laboratory;
-    }
-
-    }
-
-
+      return laboratory;
+ }
+}

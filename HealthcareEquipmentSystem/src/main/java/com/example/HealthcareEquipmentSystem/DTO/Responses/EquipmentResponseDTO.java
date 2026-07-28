@@ -16,32 +16,26 @@ public class EquipmentResponseDTO {
     private String name;
 
     private String serialNumber;
-
     private String status;
-
     private LocalDate purchaseDate;
-
-    private String PurchaseName;
-
     private String laboratoryName;
-
     private Boolean isActive;
 
+   public static EquipmentResponseDTO fromEntity(Equipment equipment) {
 
+  EquipmentResponseDTO dto = new EquipmentResponseDTO();
 
-    public static EquipmentResponseDTO fromEntity(Equipment equipment) {
+     dto.setId(equipment.getId());
+     dto.setName(equipment.getName());
+     dto.setSerialNumber(equipment.getSerialNumber());
+     dto.setStatus(equipment.getStatus());
+     dto.setPurchaseDate(equipment.getPurchaseDate());
+     dto.setIsActive(equipment.getIsActive());
 
-        EquipmentResponseDTO dto = new EquipmentResponseDTO();
-        dto.setId(equipment.getId());
-        dto.setName(equipment.getName());
-        dto.setPurchaseName(String.valueOf(equipment.getPurchaseDate()));
-        dto.setStatus(equipment.getStatus());
-        dto.setIsActive(equipment.getIsActive());
+     if (equipment.getLaboratory() != null) {
+   dto.setLaboratoryName(equipment.getLaboratory().getName());
+ }
 
-        return dto;
-
-        }
-    }
-
-
-
+    return dto;
+}
+}

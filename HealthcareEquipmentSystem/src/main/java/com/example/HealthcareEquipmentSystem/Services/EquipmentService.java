@@ -23,12 +23,12 @@ public class EquipmentService {
     }
 
     public EquipmentResponseDTO addEquipment(EquipmentRequestDTO equipmentRequestDTO) {
-        Equipment newEquipment = equipmentRequestDTO.toEntity(equipmentRequestDTO);
+        Equipment newEquipment = EquipmentRequestDTO.toEntity(equipmentRequestDTO);
         newEquipment.setStatus("Available");
         newEquipment.setIsActive(true);
 
         if (equipmentRequestDTO.getName() != null) {
-            Laboratory laboratory = laboratoryRepository.findByLaboratoryId(equipmentRequestDTO.getId());
+            Laboratory laboratory = laboratoryRepository.findByLaboratoryId(equipmentRequestDTO.getLaboratory_id());
             newEquipment.setLaboratory(laboratory);
         }
 
