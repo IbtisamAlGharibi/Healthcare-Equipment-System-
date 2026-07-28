@@ -8,10 +8,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface TechnicianRepository extends JpaRepository<MaintenanceTechnician, Integer> {
-    @Query("SELECT T FROM MaintenanceTechnicia T WHERE T.isActive=true")
+    @Query("SELECT T FROM MaintenanceTechnician T WHERE T.isActive=true")
     List<MaintenanceTechnician> findAllByIsActive();
-    @Query("SELECT T FROM MaintenanceTechnicia T WHERE T.specialization= :specialization")
+    @Query("SELECT T FROM MaintenanceTechnician T WHERE T.specialization= :specialization")
     List<MaintenanceTechnician> findBySpecialization(@Param("specialization") String specialization);
-    @Query("SELECT T FROM MaintenanceTechnicia T WHERE T.specialization= :specialization AND T.isActive=true")
-    List<MaintenanceTechnician> findBySpecializationAndIsActive(@Param("specialization") String specialization, Boolean isActive);
+    @Query("SELECT T FROM MaintenanceTechnician T WHERE T.specialization= :specialization AND T.isActive=true")
+    List<MaintenanceTechnician> findBySpecializationAndIsActive(@Param("specialization") String specialization);
 }
