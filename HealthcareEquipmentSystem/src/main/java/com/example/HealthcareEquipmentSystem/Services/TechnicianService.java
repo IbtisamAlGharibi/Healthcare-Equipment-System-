@@ -21,7 +21,6 @@ public class TechnicianService {
 
     // Add Technician
     public TechnicianResponseDTO addTechnician(TechnicianRequestDTO dto) {
-
         MaintenanceTechnician technician = TechnicianRequestDTO.toEntity(dto);
         technician.setIsActive(true);
         MaintenanceTechnician savedTechnician = technicianRepository.save(technician);
@@ -33,7 +32,7 @@ public class TechnicianService {
         if (!technicianRepository.existsById(id)) {
             //throw new EntityNotFoundException("Technician not found with id: " + id);
         }
-        MaintenanceTechnician technician = technicianRepository.findById(id).get();
+        MaintenanceTechnician technician = technicianRepository.findByMaintenanceTechnicianId(id);
         technician.setName(dto.getName());
         technician.setPhone(dto.getPhone());
         technician.setSpecialization(dto.getSpecialization());
@@ -47,7 +46,7 @@ public class TechnicianService {
         if (!technicianRepository.existsById(id)) {
             //throw new EntityNotFoundException("Technician not found with id: " + id);
         }
-        MaintenanceTechnician technician = technicianRepository.findById(id).get();
+        MaintenanceTechnician technician = technicianRepository.findByMaintenanceTechnicianId(id);
         technician.setIsActive(false);
         technicianRepository.save(technician);
     }
@@ -95,7 +94,7 @@ public class TechnicianService {
 
     //Get Technician By ID
     public TechnicianResponseDTO getTechnicianById(Integer id) {
-        MaintenanceTechnician technician = technicianRepository.findById(id).get();
+        MaintenanceTechnician technician = technicianRepository.findByMaintenanceTechnicianId(id);
         return TechnicianResponseDTO.fromEntity(technician);
     }
 }
