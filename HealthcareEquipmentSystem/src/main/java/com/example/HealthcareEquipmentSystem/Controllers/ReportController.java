@@ -65,7 +65,7 @@ public class ReportController {
         return ResponseEntity.ok(responseDTOs);
     }
 
-    @GetMapping("/laboratory-equipment-count")
+    @GetMapping("/laboratoryEquipmentCount")
     public ResponseEntity<List<LaboratoryResponseDTO>> getLaboratoryEquipmentCountReport() {
         List<Laboratory> laboratories = laboratoryRepository.findAll();
         List<Laboratory> processedLaboratories = new ArrayList<>();
