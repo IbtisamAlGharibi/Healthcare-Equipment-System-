@@ -1,5 +1,6 @@
 package com.example.HealthcareEquipmentSystem.Repositories;
 
+import com.example.HealthcareEquipmentSystem.Entities.Equipment;
 import com.example.HealthcareEquipmentSystem.Entities.Laboratory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,9 +24,9 @@ public interface LaboratoryRepository extends JpaRepository<Laboratory, Integer>
 
     //new
     @Query("SELECT l.name, COUNT(e)FROM Laboratory lLEFT JOIN l.equipment e GROUP BY l.name")
-    List<Laboratory> equipmentPerLaboratory();
+    List<Object[]> equipmentPerLaboratory();
     @Query("SELECT l.name, COUNT(r) FROM Laboratory l LEFT JOIN l.reservations r GROUP BY l.name")
-    List<Laboratory> reservationsPerLaboratory();
+    List<Object[]> reservationsPerLaboratory();
 }
 
 

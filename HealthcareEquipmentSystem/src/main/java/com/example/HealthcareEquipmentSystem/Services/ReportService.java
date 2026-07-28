@@ -45,15 +45,15 @@ public class ReportService {
         return equipmentRepository.countByStatus("UNDER_MAINTENANCE");
     }
 
-    public List<Laboratory> equipmentPerLaboratory() {
+    public List<Object[]> equipmentPerLaboratory() {
         return laboratoryRepository.equipmentPerLaboratory();
     }
 
-    public List<Laboratory> reservationsPerLaboratory() {
+    public List<Object[]> reservationsPerLaboratory() {
         return laboratoryRepository.reservationsPerLaboratory();
     }
 
-    public List<LaboratoryStaff> staffWithMostReservations() {
+    public List<Object[]> staffWithMostReservations() {
         return staffRepository.staffWithMostReservations();
     }
 
@@ -63,7 +63,7 @@ public class ReportService {
         return maintenanceRepository.findMaintenanceBetweenDates(startDate, endDate);
     }
 
-    public List<MaintenanceTechnician> technicianWithMostCompletedMaintenance() {
+    public List<Object[]> technicianWithMostCompletedMaintenance() {
         return technicianRepository.technicianWithMostCompletedMaintenance();
     }
 }

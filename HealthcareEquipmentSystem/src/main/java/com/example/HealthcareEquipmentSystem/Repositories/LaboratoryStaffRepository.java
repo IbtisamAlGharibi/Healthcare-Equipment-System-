@@ -28,5 +28,5 @@ public interface LaboratoryStaffRepository extends JpaRepository<LaboratoryStaff
         GROUP BY e.staff.name
         ORDER BY COUNT(r) DESC
         """)
-    List<LaboratoryStaff> staffWithMostReservations();
+    List<Object[]> staffWithMostReservations();
 }
