@@ -19,6 +19,8 @@ public class ReservationResponseDTO {
     private String status;
     private Integer staffId;
     private String staffName;
+    private Integer equipmentId;
+    private String equipmentName;
 
 
     public static ReservationResponseDTO fromEntity(Reservation reservation) {
@@ -29,8 +31,14 @@ public class ReservationResponseDTO {
         dto.setEndTime(reservation.getEndTime());
         dto.setPurpose(reservation.getPurpose());
         dto.setStatus(reservation.getStatus());
-        dto.setStaffId(reservation.getLaboratoryStaff().getId());
-        dto.setStaffName(reservation.getLaboratoryStaff().getName());
+        if (reservation.getLaboratoryStaff() != null) {
+            dto.setStaffId(reservation.getLaboratoryStaff().getId());
+            dto.setStaffName(reservation.getLaboratoryStaff().getName());
+        }
+       /* if (reservation.getEquipment() != null) {
+            dto.setEquipmentId(reservation.getEquipment().getId());
+            dto.setEquipmentName(reservation.getEquipment().getName());
+        }*/
         return dto;
     }
 }
