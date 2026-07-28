@@ -30,14 +30,14 @@ public class ReservationService {
         Reservation savedReservation = reservationRepository.save(newReservation);
         return ReservationResponseDTO.fromEntity(savedReservation);
     }
-    public ReservationResponseDTO approveReservation(Integer staffId) {
-        Reservation reservation = reservationRepository.findByLaboratoryStaffId(staffId);
+    public ReservationResponseDTO approveReservation(Integer reservationId) {
+        Reservation reservation = reservationRepository.findReservationById(reservationId);
         reservation.setStatus("Approved");
         Reservation savedReservation = reservationRepository.save(reservation);
         return ReservationResponseDTO.fromEntity(savedReservation);
     }
-    public ReservationResponseDTO cancelReservation(Integer staffId) {
-        Reservation reservation = reservationRepository.findByLaboratoryStaffId(staffId);
+    public ReservationResponseDTO cancelReservation(Integer reservationId) {
+        Reservation reservation = reservationRepository.findReservationById(reservationId);
         reservation.setStatus("Cancelled");
         Reservation savedReservation = reservationRepository.save(reservation);
         return ReservationResponseDTO.fromEntity(savedReservation);
