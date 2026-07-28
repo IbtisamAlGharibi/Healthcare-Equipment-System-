@@ -18,13 +18,13 @@ public class TechnicianResponseDTO {
     private String specialization;
     private Boolean isActive;
 
-    public static TechnicianResponseDTO fromEntity(MaintenanceTechnician technician){
+    public static TechnicianResponseDTO fromEntity(MaintenanceTechnician entity){
         TechnicianResponseDTO dto=new TechnicianResponseDTO();
-        dto.setId(technician.getId());
-        dto.setName(technician.getName());
-        dto.setPhone(technician.getPhone());
-        dto.setSpecialization(technician.getSpecialization());
-        dto.setIsActive(technician.getIsActive());
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+        dto.setPhone(entity.getPhone());
+        dto.setSpecialization(entity.getSpecialization());
+        dto.setIsActive(entity.getIsActive());
 
         return dto;
     }
