@@ -89,4 +89,9 @@ public class TechnicianService {
         return response;
     }
 
+    //Get Technician By ID
+    public TechnicianResponseDTO getTechnicianById(Integer id) {
+        MaintenanceTechnician technician = technicianRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Technician not found with id: " + id));
+        return TechnicianResponseDTO.fromEntity(technician);
+    }
 }
