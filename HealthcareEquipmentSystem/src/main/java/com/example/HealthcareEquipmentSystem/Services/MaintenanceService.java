@@ -87,13 +87,13 @@ public class MaintenanceService {
     }
 
     //  Delete Maintenance
-    public void deleteMaintenance(Integer id) {
+    public String deleteMaintenance(Integer id) {
         if (!maintenanceRepository.existsById(id)) {
             //throw new EntityNotFoundException("Maintenance record not found with id: " + id);
         }
         Maintenance maintenance=maintenanceRepository.findById(id).get();
         maintenance.setStatus("PENDING");
         maintenanceRepository.save(maintenance);
+        return "Maintenance Has Been Deleted...";
     }
-
 }
