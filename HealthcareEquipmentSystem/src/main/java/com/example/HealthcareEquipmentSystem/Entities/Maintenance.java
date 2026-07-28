@@ -15,8 +15,9 @@ public class Maintenance {
 
     private LocalDate maintenanceDate;
     private String description;
-    private Boolean isActive;
     private String status;
+    private Integer technicianId;
+    private Integer equipmentId;
 
     @ManyToOne
     @JoinColumn(name = "tech_id")
