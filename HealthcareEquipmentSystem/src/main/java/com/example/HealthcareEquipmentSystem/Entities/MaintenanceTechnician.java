@@ -20,4 +20,5 @@ public class MaintenanceTechnician {
 
     @OneToMany(mappedBy="maintenanceTechnician", cascade= CascadeType.ALL)
     private List<Maintenance> maintenances;
+
 }
