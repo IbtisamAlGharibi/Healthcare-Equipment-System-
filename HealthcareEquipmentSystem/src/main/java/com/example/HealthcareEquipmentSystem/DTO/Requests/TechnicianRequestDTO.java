@@ -19,15 +19,15 @@ public class TechnicianRequestDTO {
     private String phone;
     @NotBlank(message = "Specialization cannot be blank")
     private String specialization;
-    /*@NotNull(message = "Active status must be specified")
-    private Boolean isActive;*/
+    @NotNull(message = "Active status must be specified")
+    private Boolean isActive;
 
     public static MaintenanceTechnician toEntity(TechnicianRequestDTO dto){
         MaintenanceTechnician technician=new MaintenanceTechnician();
         technician.setName(dto.getName());
         technician.setPhone(dto.getPhone());
         technician.setSpecialization(dto.getSpecialization());
-        //technician.setIsActive(dto.getIsActive());
+        technician.setIsActive(dto.getIsActive());
 
         return technician;
     }

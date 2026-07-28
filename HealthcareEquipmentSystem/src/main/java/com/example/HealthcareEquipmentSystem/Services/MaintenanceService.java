@@ -9,6 +9,7 @@ import com.example.HealthcareEquipmentSystem.Repositories.TechnicianRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -58,6 +59,29 @@ public class MaintenanceService {
 
         Maintenance maintenance = maintenanceRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Maintenance not found"));
         return MaintenanceResponseDTO.fromEntity(maintenance);
+    }
+
+    // Get Maintenance By Status
+    public List<MaintenanceResponseDTO> getMaintenanceByStatus(String status) {
+        return maintenanceRepository.findByStatus(status).stream().map(MaintenanceResponseDTO::fromEntity).toList();
+    }
+
+    // Get Maintenance By Technician ID
+    public List<MaintenanceResponseDTO> getMaintenanceByTechnicianId(Integer technicianId) {
+
+        return maintenanceRepository.findByTechnicianId(technicianId).stream().map(MaintenanceResponseDTO::fromEntity).toList();
+    }
+
+    // Get Maintenance By Equipment ID
+    public List<MaintenanceResponseDTO> getMaintenanceByEquipmentId(Integer equipmentId) {
+
+        return maintenanceRepository.findByEquipmentId(equipmentId).stream().map(MaintenanceResponseDTO::fromEntity).toList();
+    }
+
+    // Get Maintenance Between Two Dates
+    public List<MaintenanceResponseDTO> getMaintenanceBetweenDates(LocalDate startDate, LocalDate endDate) {
+
+        return maintenanceRepository.findMaintenanceBetweenDates(startDate, endDate).stream().map(MaintenanceResponseDTO::fromEntity).toList();
     }
 
     //  Delete Maintenance
