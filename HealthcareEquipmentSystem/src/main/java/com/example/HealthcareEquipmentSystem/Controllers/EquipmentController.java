@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping("/api/equipment")
 public class EquipmentController {
 
-    @Autowired
     EquipmentService equipmentService;
 
     @Autowired
