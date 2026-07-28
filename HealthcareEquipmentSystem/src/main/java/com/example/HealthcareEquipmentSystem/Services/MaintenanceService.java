@@ -1,0 +1,71 @@
+package com.example.HealthcareEquipmentSystem.Services;
+
+import com.example.HealthcareEquipmentSystem.DTO.Requests.MaintenanceRequestDTO;
+import com.example.HealthcareEquipmentSystem.DTO.Responses.MaintenanceResponseDTO;
+import com.example.HealthcareEquipmentSystem.Entities.Maintenance;
+import com.example.HealthcareEquipmentSystem.Entities.MaintenanceTechnician;
+import com.example.HealthcareEquipmentSystem.Repositories.MaintenanceRepository;
+import com.example.HealthcareEquipmentSystem.Repositories.TechnicianRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class MaintenanceService {
+    private TechnicianRepository technicianRepository;
+    private MaintenanceRepository maintenanceRepository;
+    private EquipmentRepository equipmentRepository;
+
+    @Autowired
+    public MaintenanceService(MaintenanceRepository maintenanceRepository, TechnicianRepository technicianRepository, EquipmentRepository equipmentRepository) {
+        this.maintenanceRepository = maintenanceRepository;
+        this.technicianRepository = technicianRepository;
+        this.equipmentRepository = equipmentRepository;
+    }
+
+    //  Create Maintenance
+    public MaintenanceResponseDTO createMaintenance(MaintenanceRequestDTO dto) {
+
+        Equipment equipment = equipmentRepository.findById(dto.getEquipmentId()).orElseThrow(() -> new EntityNotFoundException("Equipment not found"));
+        Maintenance maintenance = MaintenanceRequestDTO.toEntity(dto);
+        maintenance.setEquipment(equipment);
+        equipment.setStatus("UNDER_MAINTENANCE");
+        equipmentRepository.save(equipment);
+        Maintenance saved = maintenanceRepository.save(maintenance);
+        return MaintenanceResponseDTO.fromEntity(saved);
+    }
+
+    //  Complete Maintenance
+    public MaintenanceResponseDTO completeMaintenance(Integer id) {
+
+        Maintenance maintenance = maintenanceRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Maintenance not found"));
+        maintenance.setStatus("COMPLETE");
+        Equipment equipment = maintenance.getEquipment();
+        equipment.setStatus("AVAILABLE");
+        equipmentRepository.save(equipment);
+        Maintenance updated = maintenanceRepository.save(maintenance);
+        return MaintenanceResponseDTO.fromEntity(updated);
+    }
+
+    //  Get All Maintenance
+    public List<MaintenanceResponseDTO> getAllMaintenance() {
+        return maintenanceRepository.findAll().stream().map(MaintenanceResponseDTO::fromEntity).toList();
+    }
+
+    //  Get Maintenance By ID
+    public MaintenanceResponseDTO getMaintenanceById(Integer id) {
+
+        Maintenance maintenance = maintenanceRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Maintenance not found"));
+        return MaintenanceResponseDTO.fromEntity(maintenance);
+    }
+
+    //  Delete Maintenance
+    public void deleteMaintenance(Integer id) {
+        if (!maintenanceRepository.existsById(id)) {
+            throw new EntityNotFoundException("Maintenance record not found with id: " + id);
+        }
+        maintenanceRepository.deleteById(id);
+    }
+
+}
