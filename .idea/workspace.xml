@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bcc91a11-30f4-4951-8c29-5cc8661b524c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/HealthcareEquipmentSystem.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Entities/Maintenance.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Entities/Maintenance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Entities/MaintenanceTechnician.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Entities/MaintenanceTechnician.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Repositories/EquipmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Repositories/EquipmentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Repositories/LaboratoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Repositories/LaboratoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="3H843MJkSTtBJqwC4o2MBt3DtWL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Spring Boot.HealthcareEquipmentSystemApplication.executor": "Run",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "DataBase-configration",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Codeline/Desktop/MyTasks/FINAL PROJECT/Project version3/Healthcare-Equipment-System-",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bcc91a11-30f4-4951-8c29-5cc8661b524c" name="Changes" comment="" />
+      <created>1785236161245</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1785236161245</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.springframework.beans.factory.BeanCreationException" package="org.springframework.beans.factory" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

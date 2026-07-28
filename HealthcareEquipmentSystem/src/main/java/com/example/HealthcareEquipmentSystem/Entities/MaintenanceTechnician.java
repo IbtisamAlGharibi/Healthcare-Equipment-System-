@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class MaintenanceTechnician {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
@@ -22,7 +21,7 @@ public class MaintenanceTechnician {
     private String specialization;
     private Boolean isActive;
 
-    @OneToMany(mappedBy="maintenanceTechnician", cascade= CascadeType.ALL)
+    @OneToMany(mappedBy="technician", cascade= CascadeType.ALL)
     private List<Maintenance> maintenances;
 
 }

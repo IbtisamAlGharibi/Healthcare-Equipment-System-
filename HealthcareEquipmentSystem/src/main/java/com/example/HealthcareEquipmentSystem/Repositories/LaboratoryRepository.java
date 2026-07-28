@@ -13,17 +13,17 @@ public interface LaboratoryRepository extends JpaRepository<Laboratory, Integer>
     @Query("select l from Laboratory l")
     List<Laboratory> getAllLaboratories();
 
-    @Query("select l from Laboratory l where l.id = :id")
+    @Query("select l from Laboratory l where l.id =:id")
     Laboratory findByLaboratoryId(@Param("id") Integer id);
 
-    @Query("select l from Laboratory l where l.name = :name")
+    @Query("select l from Laboratory l where l.name =:name")
     Laboratory findByLaboratoryName(@Param("name") String name);
 
-    @Query("select l from Laboratory l where l.location = :location and l.isActive = true")
+    @Query("select l from Laboratory l where l.location =:location and l.isActive =true")
     List<Laboratory> findByLocation(@Param("location") String location);
 
     //new
-    @Query("SELECT l.name, COUNT(e)FROM Laboratory lLEFT JOIN l.equipment e GROUP BY l.name")
+    @Query("SELECT l.name, COUNT(e) FROM Laboratory l LEFT JOIN l.equipments e GROUP BY l.name")
     List<Object[]> equipmentPerLaboratory();
     @Query("SELECT l.name, COUNT(r) FROM Laboratory l LEFT JOIN l.reservations r GROUP BY l.name")
     List<Object[]> reservationsPerLaboratory();
