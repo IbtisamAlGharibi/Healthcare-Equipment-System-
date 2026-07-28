@@ -19,7 +19,7 @@ public class MaintenanceController {
         this.maintenanceService = maintenanceService;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<MaintenanceResponseDTO> createMaintenance(@RequestBody MaintenanceRequestDTO dto) {
         MaintenanceResponseDTO response = maintenanceService.createMaintenance(dto);
         return ResponseEntity.ok(response);
@@ -31,7 +31,7 @@ public class MaintenanceController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<MaintenanceResponseDTO>> getAllMaintenance() {
         List<MaintenanceResponseDTO> response = maintenanceService.getAllMaintenance();
         return ResponseEntity.ok(response);
