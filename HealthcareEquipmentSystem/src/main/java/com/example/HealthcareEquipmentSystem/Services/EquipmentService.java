@@ -36,7 +36,7 @@ public class EquipmentService {
 
             Laboratory laboratory =
                     laboratoryRepository.findByLaboratoryId(
-                            equipmentRequestDTO.getLaboratory_id()
+                            equipmentRequestDTO.getLaboratoryId()
                     );
             newEquipment.setLaboratory(laboratory);
 
@@ -176,11 +176,13 @@ public class EquipmentService {
             responseDTOList.add(
                     EquipmentResponseDTO.fromEntity(equipment)
             );
+
         }
 
         return responseDTOList;
 
     }
+
     public EquipmentResponseDTO getEquipmentById(Integer id) {
 
         Equipment equipment =
@@ -191,6 +193,7 @@ public class EquipmentService {
             throw new ResourceNotFoundException(
                     "Equipment not found with id: " + id
             );
+
         }
 
         return EquipmentResponseDTO.fromEntity(equipment);
