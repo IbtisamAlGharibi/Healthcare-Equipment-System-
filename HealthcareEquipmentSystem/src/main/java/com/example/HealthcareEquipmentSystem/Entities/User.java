@@ -8,7 +8,7 @@ import org.jspecify.annotations.Nullable;
 
 @Entity
 @AllArgsConstructor
-
+@NoArgsConstructor
 @Data
 public class User {
     @Id
