@@ -1,7 +1,6 @@
 package com.example.HealthcareEquipmentSystem.DTO.Requests;
 
 import jakarta.persistence.Entity;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+public class LoginRequest {
     private String username;
     private String password;
-    private String role; // ADMIN, LAB_STAFF, or TECHNICIAN
 }
