@@ -13,18 +13,23 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EquipmentRequestDTO {
-    @NotBlank
+    @NotBlank(message = "Name is required")
     private String name;
-    @NotBlank
+
+    @NotBlank(message = "Serial number is required")
     private String serialNumber;
-    @NotBlank
+
+    @NotBlank(message = "Status is required")
     private String status;
-    @NotNull
+
+    @NotNull(message = "Purchase date is required")
     private LocalDate purchaseDate;
-    @NotNull
+
+    @NotNull(message = "Active status is required")
     private Boolean isActive;
+
     @NotNull(message = "Laboratory ID is required")
-    private Integer laboratory_id;
+    private Integer laboratoryId;
 
     public static Equipment toEntity(EquipmentRequestDTO equipmentRequestDTO){
         Equipment equipment = new Equipment();

@@ -3,6 +3,7 @@ package com.example.HealthcareEquipmentSystem.Controllers;
 import com.example.HealthcareEquipmentSystem.DTO.Requests.MaintenanceRequestDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.MaintenanceResponseDTO;
 import com.example.HealthcareEquipmentSystem.Services.MaintenanceService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class MaintenanceController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<MaintenanceResponseDTO> createMaintenance(@RequestBody MaintenanceRequestDTO dto) {
+    public ResponseEntity<MaintenanceResponseDTO> createMaintenance(@Valid @RequestBody MaintenanceRequestDTO dto) {
         MaintenanceResponseDTO response = maintenanceService.createMaintenance(dto);
         return ResponseEntity.ok(response);
     }
