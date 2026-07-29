@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class EquipmentService {
     EquipmentRepository equipmentRepository;
@@ -51,44 +52,38 @@ public class EquipmentService {
     public EquipmentResponseDTO updateEquipment(Integer id, EquipmentRequestDTO equipmentRequestDTO) {
 
         Equipment updatedEquipment =
-                equipmentRepository.findByEquipmentId(id);
+                equipmentRepository.findEquipmentByIdIncludingInactive(id);
 
-
-        if(updatedEquipment == null){
-
+        if (updatedEquipment == null) {
             throw new ResourceNotFoundException(
                     "Equipment not found with id: " + id
             );
-
         }
+
         updatedEquipment.setName(equipmentRequestDTO.getName());
+        updatedEquipment.setSerialNumber(equipmentRequestDTO.getSerialNumber());
+        updatedEquipment.setStatus(equipmentRequestDTO.getStatus());
+        updatedEquipment.setPurchaseDate(equipmentRequestDTO.getPurchaseDate());
+        updatedEquipment.setIsActive(equipmentRequestDTO.getIsActive());
 
-        updatedEquipment.setPurchaseDate(
-                equipmentRequestDTO.getPurchaseDate()
-        );
-
-
-        if (equipmentRequestDTO.getName() != null) {
-
+        if (equipmentRequestDTO.getLaboratoryId() != null) {
             Laboratory laboratory =
-                    laboratoryRepository.findByLaboratoryId(id);
-
+                    laboratoryRepository.findByLaboratoryId(
+                            equipmentRequestDTO.getLaboratoryId()
+                    );
             updatedEquipment.setLaboratory(laboratory);
-
         }
+
         Equipment savedEquipment =
                 equipmentRepository.save(updatedEquipment);
 
-
         return EquipmentResponseDTO.fromEntity(savedEquipment);
-
     }
-
 
     public void deleteEquipment(Integer id) {
 
         Equipment deletedEquipment =
-                equipmentRepository.findByEquipmentId(id);
+                equipmentRepository.findEquipmentByIdIncludingInactive(id);
 
 
         if(deletedEquipment == null){
@@ -186,7 +181,7 @@ public class EquipmentService {
     public EquipmentResponseDTO getEquipmentById(Integer id) {
 
         Equipment equipment =
-                equipmentRepository.findByEquipmentId(id);
+                equipmentRepository.findEquipmentByIdIncludingInactive(id);
 
         if(equipment == null){
 
