@@ -28,36 +28,36 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                                // Public authentication endpoints
-                                .requestMatchers("/api/auth/**").permitAll()
+                        // Public authentication endpoints
+                        .requestMatchers("/api/auth/**").permitAll()
 
-                                // ADMIN permissions (manages labs, equipment, technicians, reports)
-                                .requestMatchers("/laboratories/**").hasRole("ADMIN")
-                                .requestMatchers("/technicians/**").hasRole("ADMIN")
-                                .requestMatchers("/reports/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.POST, "/equipment/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "/equipment/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/equipment/**").hasRole("ADMIN")
-                                .requestMatchers("/reservations/{id}/approve").hasRole("ADMIN")
+                        // ADMIN permissions (manages labs, equipment, technicians, reports)
+                        .requestMatchers("/api/laboratories/**").hasRole("ADMIN")
+                        .requestMatchers("/api/technicians/**").hasRole("ADMIN")
+                        .requestMatchers("/api/reports/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/equipment/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/equipment/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/equipment/**").hasRole("ADMIN")
+                        .requestMatchers("/api/reservations/{id}/approve").hasRole("ADMIN")
 
-                        // LAB_STAFF permissions (view equipment, create/cancel reservations,reservation history)
-                .requestMatchers(HttpMethod.GET, "/equipment/**").hasAnyRole("ADMIN",
-                        "LAB_STAFF", "TECHNICIAN")
-                .requestMatchers(HttpMethod.POST, "/reservations").hasRole("LAB_STAFF")
-                .requestMatchers("/reservations/{id}/cancel").hasRole("LAB_STAFF")
-                .requestMatchers("/reservations/history/**").hasRole("LAB_STAFF")
+                        // LAB_STAFF permissions (view equipment, create/cancel reservations, reservation history)
+                        .requestMatchers(HttpMethod.GET, "/api/equipment/**").hasAnyRole("ADMIN",
+                                "LAB_STAFF", "TECHNICIAN")
+                        .requestMatchers(HttpMethod.POST, "/api/reservations").hasRole("LAB_STAFF")
+                        .requestMatchers("/api/reservations/{id}/cancel").hasRole("LAB_STAFF")
+                        .requestMatchers("/api/reservations/history/**").hasRole("LAB_STAFF")
 
-                // TECHNICIAN permissions (view maintenance, complete maintenance)
-                .requestMatchers(HttpMethod.GET, "/maintenance/**").hasAnyRole("ADMIN",
-                        "TECHNICIAN")
-                .requestMatchers(HttpMethod.POST, "/maintenance/**").hasAnyRole("ADMIN",
-                        "TECHNICIAN")
-                .requestMatchers("/maintenance/{id}/complete").hasRole("TECHNICIAN")
+                        // TECHNICIAN permissions (view maintenance, complete maintenance)
+                        .requestMatchers(HttpMethod.GET, "/api/maintenance/**").hasAnyRole("ADMIN",
+                                "TECHNICIAN")
+                        .requestMatchers(HttpMethod.POST, "/api/maintenance/**").hasAnyRole("ADMIN",
+                                "TECHNICIAN")
+                        .requestMatchers("/api/maintenance/{id}/complete").hasRole("TECHNICIAN")
 
-                // All remaining requests require authentication
-                .anyRequest().authenticated()
-            )
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                        // All remaining requests require authentication
+                        .anyRequest().authenticated()
+                )
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
