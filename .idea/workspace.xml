@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bcc91a11-30f4-4951-8c29-5cc8661b524c" name="Changes" comment="" />
+    <list default="true" id="bcc91a11-30f4-4951-8c29-5cc8661b524c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Controllers/AuthController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,7 +48,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "Spring Boot.HealthcareEquipmentSystemApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "Test",
+    "git-widget-placeholder": "Updated-User-Roles",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Codeline/Desktop/MyTasks/FINAL PROJECT/Project version3/Healthcare-Equipment-System-",
