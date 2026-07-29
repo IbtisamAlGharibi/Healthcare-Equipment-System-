@@ -46,7 +46,7 @@ public class MaintenanceService {
     //  Complete Maintenance
     public MaintenanceResponseDTO completeMaintenance(Integer id) {
 
-        Maintenance maintenance = maintenanceRepository.findById(id).get();
+        Maintenance maintenance = maintenanceRepository.findByMaintenanceId(id);
         maintenance.setStatus("COMPLETE");
         Equipment equipment = maintenance.getEquipment();;
         equipment.setStatus("AVAILABLE");
@@ -62,7 +62,7 @@ public class MaintenanceService {
 
     //  Get Maintenance By ID
     public MaintenanceResponseDTO getMaintenanceById(Integer id) {
-        Maintenance maintenance = maintenanceRepository.findById(id).get();
+        Maintenance maintenance = maintenanceRepository.findByMaintenanceId(id);
         return MaintenanceResponseDTO.fromEntity(maintenance);
     }
 
@@ -89,13 +89,12 @@ public class MaintenanceService {
     }
 
     //  Delete Maintenance
-    public String deleteMaintenance(Integer id) {
+    public void deleteMaintenance(Integer id) {
         if (!maintenanceRepository.existsById(id)) {
             //throw new EntityNotFoundException("Maintenance record not found with id: " + id);
         }
-        Maintenance maintenance=maintenanceRepository.findById(id).get();
+        Maintenance maintenance=maintenanceRepository.findByMaintenanceId(id);
         maintenance.setStatus("PENDING");
         maintenanceRepository.save(maintenance);
-        return "Maintenance Has Been Deleted...";
     }
 }

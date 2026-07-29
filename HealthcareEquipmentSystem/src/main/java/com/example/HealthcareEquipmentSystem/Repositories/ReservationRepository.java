@@ -27,4 +27,13 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     List<Reservation> getApprovedReservations();
     @Query("SELECT r FROM Reservation r WHERE r.laboratoryStaff.id =:staffId AND r.status =:status")
     List<Reservation> findByLaboratoryStaffIdAndStatus(@Param("staffId") Integer staffId, @Param("status") String status);
+    //newOne
+    @Query("""
+        SELECT r.laboratoryStaff.name, COUNT(r)
+        FROM Reservation r
+        JOIN r.equipment e
+        GROUP BY r.laboratoryStaff.name
+        ORDER BY COUNT(r) DESC
+        """)
+    List<Reservation> staffWithMostReservations();
 }

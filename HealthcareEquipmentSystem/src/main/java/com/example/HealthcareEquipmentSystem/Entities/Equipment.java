@@ -38,9 +38,8 @@ public class Equipment {
     private String description;
 
 
-/*
     @OneToMany(mappedBy = "equipment")
-    private List<Maintenance> maintenances;*/
+    private List<Maintenance> maintenances;
 }
 
 
