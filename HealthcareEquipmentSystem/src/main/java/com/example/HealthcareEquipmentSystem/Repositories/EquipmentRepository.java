@@ -27,6 +27,9 @@ public interface EquipmentRepository extends JpaRepository<Equipment, Integer>  
     //new
     @Query("SELECT COUNT(e) FROM Equipment e WHERE e.status=:status")
     Integer countByStatus(@Param("status") String status);
+
+    @Query("select e from Equipment e where e.id =:id")
+    Equipment findEquipmentByIdIncludingInactive(@Param("id") Integer id);
 }
 
 
