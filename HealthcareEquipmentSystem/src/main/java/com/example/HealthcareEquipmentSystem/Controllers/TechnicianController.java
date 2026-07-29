@@ -3,6 +3,7 @@ package com.example.HealthcareEquipmentSystem.Controllers;
 import com.example.HealthcareEquipmentSystem.DTO.Requests.TechnicianRequestDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.TechnicianResponseDTO;
 import com.example.HealthcareEquipmentSystem.Services.TechnicianService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class TechnicianController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<TechnicianResponseDTO> addTechnician(@RequestBody TechnicianRequestDTO dto) {
+    public ResponseEntity<TechnicianResponseDTO> addTechnician(@Valid @RequestBody TechnicianRequestDTO dto) {
         TechnicianResponseDTO response = technicianService.addTechnician(dto);
         return ResponseEntity.ok(response);
     }
