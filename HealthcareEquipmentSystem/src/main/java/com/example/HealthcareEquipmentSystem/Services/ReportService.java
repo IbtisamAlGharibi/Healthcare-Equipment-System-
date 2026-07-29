@@ -45,16 +45,16 @@ public class ReportService {
         return equipmentRepository.countByStatus("UNDER_MAINTENANCE");
     }
 
-    public List<Object[]> equipmentPerLaboratory() {
-        return laboratoryRepository.equipmentPerLaboratory();
+    public List<Equipment> equipmentPerLaboratory() {
+        return equipmentRepository.getAllEquipment();
     }
 
-    public List<Object[]> reservationsPerLaboratory() {
-        return laboratoryRepository.reservationsPerLaboratory();
+    public List<Reservation> reservationsPerLaboratory() {
+        return reservationRepository.getAllReservation();
     }
 
-    public List<Object[]> staffWithMostReservations() {
-        return staffRepository.staffWithMostReservations();
+    public List<Reservation> staffWithMostReservations() {
+        return reservationRepository.staffWithMostReservations();
     }
 
     public List<Maintenance> equipmentRepairedThisMonth(LocalDate startDate,

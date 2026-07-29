@@ -22,9 +22,9 @@ public class Reservation {
     private String status;
     private Boolean isActive;
 
-   /* @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "equipment_id", nullable = false)
-    private Equipment equipment;*/
+    private Equipment equipment;
 
     @ManyToOne
     @JoinColumn(name = "laboratory_staff_id", nullable = false)
