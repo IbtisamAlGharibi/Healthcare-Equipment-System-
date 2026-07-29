@@ -4,10 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jspecify.annotations.Nullable;
 
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
+
 @Data
 public class User {
     @Id
@@ -21,4 +22,9 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
+    public User(String username, @Nullable String encode, Role role) {
+        this.username = username;
+        this.password = encode;
+        this.role = role;
+    }
 }
