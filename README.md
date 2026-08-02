@@ -349,11 +349,11 @@ index.html
 
 # Team Members
 
-| Name | Role |
-|------|------|
-| **Wejdan Salim Al Subhi** | Focal Person |
-| Ibtisam Hamdan Mohammed Al Gharibi | Backend Developer |
-| Maathier Ahmed Mahfoodh Al Nabhani | Full Stack Developer |
+| Name 
+|------
+| **Wejdan Salim Al Subhi** 
+| Ibtisam Hamdan Mohammed Al Gharibi 
+| Maathier Ahmed Mahfoodh Al Nabhani 
 
 ---
 
