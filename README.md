@@ -141,7 +141,7 @@ Create an `application.properties` (or use environment variables) with the follo
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/HealthcareEquipmentSystem
-spring.datasource.username=root
+spring.datasource.username=YPUR_USERNAME
 spring.datasource.password=YOUR_PASSWORD
 
 spring.jpa.hibernate.ddl-auto=update
