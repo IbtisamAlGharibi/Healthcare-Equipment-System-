@@ -9,10 +9,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface EquipmentRepository extends JpaRepository<Equipment, Integer>  {
-    @Query("select e from Equipment e where e.status = 'Available' and e.isActive=true")
+    @Query("select e from Equipment e")
     List<Equipment> getAllEquipment();
 
-    @Query("select e from Equipment e where e.id =:id and e.isActive=true")
+    @Query("select e from Equipment e where e.id =:id")
     Equipment findByEquipmentId(@Param("id") Integer id);
 
     @Query("select e from Equipment e where e.name =:name and e.isActive=true")
@@ -21,15 +21,18 @@ public interface EquipmentRepository extends JpaRepository<Equipment, Integer>  
     @Query("select e from Equipment e where e.status =:status and e.isActive=true")
     List<Equipment> findByStatus(@Param("status") String status);
 
-    @Query("select e from Equipment e where e.status = 'Available' and e.isActive=true")
+    @Query("select e from Equipment e where e.isActive=true and e.status ='Available'")
     List<Equipment> getAvailableEquipment();
 
     //new
     @Query("SELECT COUNT(e) FROM Equipment e WHERE e.status=:status")
     Integer countByStatus(@Param("status") String status);
 
-    @Query("select e from Equipment e where e.id =:id")
-    Equipment findEquipmentByIdIncludingInactive(@Param("id") Integer id);
+    @Query("SELECT COUNT(e) FROM Equipment e WHERE e.isActive=true and e.status='Available'")
+    Integer countAvailable();
+
+    @Query("SELECT e FROM Equipment e WHERE e.laboratory.id = :laboratoryId")
+    List<Equipment> findEquipmentByLaboratoryId(@Param("laboratoryId") Integer laboratoryId);
 }
 
 

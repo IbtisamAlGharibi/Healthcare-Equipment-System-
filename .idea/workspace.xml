@@ -5,15 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="60efbe72-d2d1-458a-8ba6-bb7a06f44ed8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/DTO/Responses/UserResponseDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Controllers/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/SecurityConfiguration/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/SecurityConfiguration/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Repositories/EquipmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Repositories/EquipmentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Repositories/ReservationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Repositories/ReservationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Repositories/TechnicianRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Repositories/TechnicianRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Services/EquipmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Services/EquipmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Services/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Services/ReportService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

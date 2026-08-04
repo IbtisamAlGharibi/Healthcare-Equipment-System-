@@ -32,29 +32,38 @@ public class ReportService {
         this.maintenanceRepository = maintenanceRepository;
         this.technicianRepository = technicianRepository;
     }
-
     public Integer availableEquipment() {
-        return equipmentRepository.countByStatus("AVAILABLE");
+        return equipmentRepository.countAvailable();
     }
 
     public Integer reservedEquipment() {
-        return equipmentRepository.countByStatus("RESERVED");
+        return equipmentRepository.countByStatus("Reserved");
     }
 
     public Integer maintenanceEquipment() {
-        return equipmentRepository.countByStatus("UNDER_MAINTENANCE");
+        return equipmentRepository.countByStatus("Maintenance");
     }
 
     public List<Equipment> equipmentPerLaboratory() {
-        return equipmentRepository.getAllEquipment();
+        List<Equipment> equipmentList = equipmentRepository.getAllEquipment();
+        List<Equipment> responseList = new ArrayList<>();
+        for (Equipment equipment : equipmentList) {
+            if (equipment.getIsActive()) {
+                responseList.add(equipment);
+            }
+        }
+        return responseList;
     }
 
     public List<Reservation> reservationsPerLaboratory() {
         return reservationRepository.getAllReservation();
     }
+
+
     public List<Maintenance> equipmentRepairedThisMonth(LocalDate startDate,
                                                         LocalDate endDate) {
 
         return maintenanceRepository.findMaintenanceBetweenDates(startDate, endDate);
     }
+
 }

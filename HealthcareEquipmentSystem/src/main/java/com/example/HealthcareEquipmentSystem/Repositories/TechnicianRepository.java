@@ -16,13 +16,4 @@ public interface TechnicianRepository extends JpaRepository<MaintenanceTechnicia
     List<MaintenanceTechnician> findBySpecializationAndIsActive(@Param("specialization") String specialization);
     @Query("select T from MaintenanceTechnician T where T.isActive=true and T.id=:id ")
     MaintenanceTechnician findByMaintenanceTechnicianId(@Param("id") Integer id);
-    //new
-    @Query("""
-        SELECT M.technicianId, COUNT(M)
-        FROM Maintenance M
-        WHERE M.status='COMPLETE'
-        GROUP BY M.technicianId
-        ORDER BY COUNT(M) DESC
-       """)
-    List<Object[]> technicianWithMostCompletedMaintenance();
 }

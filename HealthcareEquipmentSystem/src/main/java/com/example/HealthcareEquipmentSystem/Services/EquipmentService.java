@@ -50,56 +50,31 @@ public class EquipmentService {
     }
 
     public EquipmentResponseDTO updateEquipment(Integer id, EquipmentRequestDTO equipmentRequestDTO) {
-
-        Equipment updatedEquipment =
-                equipmentRepository.findEquipmentByIdIncludingInactive(id);
-
-        if (updatedEquipment == null) {
-            throw new ResourceNotFoundException(
-                    "Equipment not found with id: " + id
-            );
+        if(!equipmentRepository.existsById(id)){
+            throw new ResourceNotFoundException("Equipment not found with id: " + id);
         }
-
-        updatedEquipment.setName(equipmentRequestDTO.getName());
-        updatedEquipment.setSerialNumber(equipmentRequestDTO.getSerialNumber());
-        updatedEquipment.setStatus(equipmentRequestDTO.getStatus());
-        updatedEquipment.setPurchaseDate(equipmentRequestDTO.getPurchaseDate());
-        updatedEquipment.setIsActive(equipmentRequestDTO.getIsActive());
-
+        Equipment equipment = equipmentRepository.findByEquipmentId(id);
+        equipment.setName(equipmentRequestDTO.getName());
+        equipment.setSerialNumber(equipmentRequestDTO.getSerialNumber());
+        if (equipmentRequestDTO.getPurchaseDate() != null) {
+            equipment.setPurchaseDate(equipmentRequestDTO.getPurchaseDate());
+        }
         if (equipmentRequestDTO.getLaboratoryId() != null) {
-            Laboratory laboratory =
-                    laboratoryRepository.findByLaboratoryId(
-                            equipmentRequestDTO.getLaboratoryId()
-                    );
-            updatedEquipment.setLaboratory(laboratory);
+            Laboratory laboratory = laboratoryRepository.findByLaboratoryId(equipmentRequestDTO.getLaboratoryId());
+            equipment.setLaboratory(laboratory);
         }
-
-        Equipment savedEquipment =
-                equipmentRepository.save(updatedEquipment);
-
-        return EquipmentResponseDTO.fromEntity(savedEquipment);
+        Equipment updatedEquipment = equipmentRepository.save(equipment);
+        return EquipmentResponseDTO.fromEntity(updatedEquipment);
     }
 
     public void deleteEquipment(Integer id) {
-
-        Equipment deletedEquipment =
-                equipmentRepository.findEquipmentByIdIncludingInactive(id);
-
-
-        if(deletedEquipment == null){
-
-            throw new ResourceNotFoundException(
-                    "Equipment not found with id: " + id
-            );
-
+        if(!equipmentRepository.existsById(id)){
+            throw new ResourceNotFoundException("Equipment not found with id: " + id);
         }
-
-        deletedEquipment.setIsActive(false);
-
-        equipmentRepository.save(deletedEquipment);
-
+        Equipment equipment = equipmentRepository.findByEquipmentId(id);
+        equipment.setIsActive(false);
+        equipmentRepository.save(equipment);
     }
-
 
     public EquipmentResponseDTO changeStatus(Integer id, String newStatus) {
 
@@ -158,41 +133,21 @@ public class EquipmentService {
 
     public List<EquipmentResponseDTO> getAvailableEquipment() {
 
-
-        List<Equipment> equipmentList =
-                equipmentRepository.getAvailableEquipment();
-
-
-        List<EquipmentResponseDTO> responseDTOList =
-                new ArrayList<>();
-
+        List<Equipment> equipmentList = equipmentRepository.getAvailableEquipment();
+        List<EquipmentResponseDTO> responseDTOList = new ArrayList<>();
         for (Equipment equipment : equipmentList) {
-
-            responseDTOList.add(
-                    EquipmentResponseDTO.fromEntity(equipment)
-            );
-
+            responseDTOList.add(EquipmentResponseDTO.fromEntity(equipment));
         }
-
         return responseDTOList;
-
     }
 
     public EquipmentResponseDTO getEquipmentById(Integer id) {
-
-        Equipment equipment =
-                equipmentRepository.findEquipmentByIdIncludingInactive(id);
-
+        Equipment equipment = equipmentRepository.findByEquipmentId(id);
         if(equipment == null){
-
-            throw new ResourceNotFoundException(
-                    "Equipment not found with id: " + id
-            );
-
+            throw new ResourceNotFoundException("Equipment not found with id: " + id);
         }
 
         return EquipmentResponseDTO.fromEntity(equipment);
 
     }
-
 }
