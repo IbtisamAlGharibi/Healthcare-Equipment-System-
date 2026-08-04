@@ -146,6 +146,7 @@ Main entities include:
  
 - Users
 - Laboratory
+- Laboratory Staff
 - Equipment
 - Reservation
 - Maintenance
