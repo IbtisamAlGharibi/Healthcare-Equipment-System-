@@ -1,5 +1,6 @@
 package com.example.HealthcareEquipmentSystem.DTO.Requests;
 
+import com.example.HealthcareEquipmentSystem.Entities.Equipment;
 import com.example.HealthcareEquipmentSystem.Entities.Reservation;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
@@ -23,6 +24,8 @@ public class ReservationRequestDTO {
     private LocalTime endTime;
     @NotBlank(message = "Purpose is required.")
     private String purpose;
+    @NotNull(message = "Equipment is required.")
+    private Integer equipmentId;
 
     public Reservation toEntity() {
         Reservation reservation = new Reservation();
@@ -30,6 +33,9 @@ public class ReservationRequestDTO {
         reservation.setStartTime(startTime);
         reservation.setEndTime(endTime);
         reservation.setPurpose(purpose);
+        Equipment equipment = new Equipment();
+        equipment.setId(equipmentId);
+        reservation.setEquipment(equipment);
         return reservation;
     }
 }
