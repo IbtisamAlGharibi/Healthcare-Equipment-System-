@@ -19,14 +19,4 @@ public interface LaboratoryStaffRepository extends JpaRepository<LaboratoryStaff
 
     @Query("select ls from LaboratoryStaff ls where ls.isActive=true and ls.department =:department")
     List<LaboratoryStaff> findByDepartment(@Param("department") String department);
-
-    /*
-    @Query("""
-        SELECT e.staff.name, COUNT(r)
-        FROM Reservation r
-        JOIN r.equipment e
-        GROUP BY e.staff.name
-        ORDER BY COUNT(r) DESC
-        """)
-    List<Object[]> staffWithMostReservations();*/
 }

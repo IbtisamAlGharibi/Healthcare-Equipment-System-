@@ -57,7 +57,7 @@ public class LaboratoryStaffService {
         return LaboratoryStaffResponseDTO.fromEntity(laboratoryStaff);
     }
     public List<LaboratoryStaffResponseDTO> getAllLaboratoryStaff() {
-        List<LaboratoryStaff> laboratoryStaffList = laboratoryStaffRepository.getAllStaff();
+        List<LaboratoryStaff> laboratoryStaffList = laboratoryStaffRepository.findAll();
         List<LaboratoryStaffResponseDTO> responseDTOList = new ArrayList<>();
         for (LaboratoryStaff laboratoryStaff : laboratoryStaffList) {
             responseDTOList.add(LaboratoryStaffResponseDTO.fromEntity(laboratoryStaff));
