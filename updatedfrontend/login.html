@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign in · Healthcare Equipment System</title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="login">
+  <div class="login-shell">
+    <div class="login-card">
+      <div class="login-brand"><span class="led led-brand"></span>Healthcare Equipment System</div>
+      <p class="login-sub">Sign in to manage labs, equipment, and reservations.</p>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="loginUser">Username</label>
+          <input type="text" id="loginUser" autocomplete="username" required />
+        </div>
+        <div class="field">
+          <label for="loginPass">Password</label>
+          <input type="password" id="loginPass" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:6px;">
+          Sign in
+        </button>
+      </form>
+
+      <p style="text-align:center; margin-top:16px; font-size:12.5px; color:var(--ink-soft);">
+        Don't have an account? Ask your administrator to create one for you.
+      </p>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
