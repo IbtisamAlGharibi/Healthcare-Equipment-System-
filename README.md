@@ -312,9 +312,7 @@ Open `index.html` directly in a browser, or serve it with a local static server 
 | GET | `/reports/maintenance-equipment` |
 | GET | `/reports/equipment-per-laboratory` |
 | GET | `/reports/reservations-per-laboratory` |
-| GET | `/reports/staff-most-reservations` |
 | GET | `/reports/equipment-repaired-this-month` |
-| GET | `/reports/top-technician` |
  
 ---
  
