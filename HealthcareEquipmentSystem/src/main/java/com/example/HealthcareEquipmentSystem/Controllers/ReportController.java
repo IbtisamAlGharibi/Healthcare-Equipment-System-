@@ -5,6 +5,7 @@ import com.example.HealthcareEquipmentSystem.DTO.Requests.MaintenanceRequestDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.EquipmentResponseDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.LaboratoryResponseDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.MaintenanceResponseDTO;
+import com.example.HealthcareEquipmentSystem.DTO.Responses.ReservationResponseDTO;
 import com.example.HealthcareEquipmentSystem.Entities.*;
 import com.example.HealthcareEquipmentSystem.Repositories.EquipmentRepository;
 import com.example.HealthcareEquipmentSystem.Repositories.LaboratoryRepository;
@@ -47,14 +48,14 @@ public class ReportController {
     }
 
     @GetMapping("/laboratory/equipment")
-    public ResponseEntity<List<Equipment>> getEquipmentPerLaboratory() {
-        List<Equipment> equipmentList = reportService.equipmentPerLaboratory();
+    public ResponseEntity<List<EquipmentResponseDTO>> getEquipmentPerLaboratory() {
+        List<EquipmentResponseDTO> equipmentList = reportService.equipmentPerLaboratory();
         return ResponseEntity.ok(equipmentList);
     }
 
     @GetMapping("/laboratory/reservations")
-    public ResponseEntity<List<Reservation>> getReservationsPerLaboratory() {
-        List<Reservation> laboratories = reportService.reservationsPerLaboratory();
+    public ResponseEntity<List<ReservationResponseDTO>> getReservationsPerLaboratory() {
+        List<ReservationResponseDTO> laboratories = reportService.reservationsPerLaboratory();
         return ResponseEntity.ok(laboratories);
     }
 

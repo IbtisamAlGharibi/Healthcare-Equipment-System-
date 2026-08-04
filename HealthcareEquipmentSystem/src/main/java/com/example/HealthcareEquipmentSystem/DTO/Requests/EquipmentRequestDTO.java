@@ -25,8 +25,8 @@ public class EquipmentRequestDTO {
     @NotNull(message = "Purchase date is required")
     private LocalDate purchaseDate;
 
-    @NotNull(message = "Active status is required")
-    private Boolean isActive;
+    /*@NotNull(message = "Active status is required")
+    private Boolean isActive;*/
 
     @NotNull(message = "Laboratory ID is required")
     private Integer laboratoryId;

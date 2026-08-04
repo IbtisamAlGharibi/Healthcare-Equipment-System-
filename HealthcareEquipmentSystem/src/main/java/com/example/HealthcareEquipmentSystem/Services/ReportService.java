@@ -1,10 +1,7 @@
 package com.example.HealthcareEquipmentSystem.Services;
 
 import com.example.HealthcareEquipmentSystem.Controllers.LaboratoryStaffController;
-import com.example.HealthcareEquipmentSystem.DTO.Responses.EquipmentResponseDTO;
-import com.example.HealthcareEquipmentSystem.DTO.Responses.LaboratoryStaffResponseDTO;
-import com.example.HealthcareEquipmentSystem.DTO.Responses.MaintenanceResponseDTO;
-import com.example.HealthcareEquipmentSystem.DTO.Responses.TechnicianResponseDTO;
+import com.example.HealthcareEquipmentSystem.DTO.Responses.*;
 import com.example.HealthcareEquipmentSystem.Entities.*;
 import com.example.HealthcareEquipmentSystem.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,19 +41,24 @@ public class ReportService {
         return equipmentRepository.countByStatus("Maintenance");
     }
 
-    public List<Equipment> equipmentPerLaboratory() {
+    public List<EquipmentResponseDTO> equipmentPerLaboratory() {
         List<Equipment> equipmentList = equipmentRepository.getAllEquipment();
-        List<Equipment> responseList = new ArrayList<>();
+        List<EquipmentResponseDTO> responseList = new ArrayList<>();
         for (Equipment equipment : equipmentList) {
             if (equipment.getIsActive()) {
-                responseList.add(equipment);
+                responseList.add(EquipmentResponseDTO.fromEntity(equipment));
             }
         }
         return responseList;
     }
 
-    public List<Reservation> reservationsPerLaboratory() {
-        return reservationRepository.getAllReservation();
+    public List<ReservationResponseDTO> reservationsPerLaboratory() {
+        List<Reservation> reservationList = reservationRepository.getAllReservation();
+        List<ReservationResponseDTO> responseList = new ArrayList<>();
+        for (Reservation reservation : reservationList) {
+            responseList.add(ReservationResponseDTO.fromEntity(reservation));
+        }
+        return responseList;
     }
 
 

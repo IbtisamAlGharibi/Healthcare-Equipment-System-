@@ -22,6 +22,7 @@ public class ReservationResponseDTO {
     private String staffName;
     private Integer equipmentId;
     private String equipmentName;
+    private String laboratoryName;
 
 
     public static ReservationResponseDTO fromEntity(Reservation reservation) {
@@ -40,6 +41,9 @@ public class ReservationResponseDTO {
         if (reservation.getEquipment() != null) {
             dto.setEquipmentId(reservation.getEquipment().getId());
             dto.setEquipmentName(reservation.getEquipment().getName());
+            if (reservation.getEquipment().getLaboratory() != null) {
+                dto.setLaboratoryName(reservation.getEquipment().getLaboratory().getName());
+            }
         }
         return dto;
     }
