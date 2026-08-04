@@ -48,8 +48,8 @@ public class ReportController {
 
     @GetMapping("/laboratory/equipment")
     public ResponseEntity<List<Equipment>> getEquipmentPerLaboratory() {
-        List<Equipment> laboratories = reportService.equipmentPerLaboratory();
-        return ResponseEntity.ok(laboratories);
+        List<Equipment> equipmentList = reportService.equipmentPerLaboratory();
+        return ResponseEntity.ok(equipmentList);
     }
 
     @GetMapping("/laboratory/reservations")
@@ -63,5 +63,4 @@ public class ReportController {
         List<Maintenance> maintenanceList = reportService.equipmentRepairedThisMonth(startDate, endDate);
         return ResponseEntity.ok(maintenanceList);
     }
-
 }

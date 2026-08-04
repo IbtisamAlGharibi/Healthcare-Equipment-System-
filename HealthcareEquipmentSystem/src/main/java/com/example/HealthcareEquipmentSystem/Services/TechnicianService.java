@@ -3,6 +3,7 @@ package com.example.HealthcareEquipmentSystem.Services;
 import com.example.HealthcareEquipmentSystem.DTO.Requests.TechnicianRequestDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.TechnicianResponseDTO;
 import com.example.HealthcareEquipmentSystem.Entities.MaintenanceTechnician;
+import com.example.HealthcareEquipmentSystem.Exceptions.ResourceNotFoundException;
 import com.example.HealthcareEquipmentSystem.Repositories.TechnicianRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,6 @@ public class TechnicianService {
     public TechnicianService(TechnicianRepository technicianRepository) {
         this.technicianRepository = technicianRepository;
     }
-
     // Add Technician
     public TechnicianResponseDTO addTechnician(TechnicianRequestDTO dto) {
         MaintenanceTechnician technician = TechnicianRequestDTO.toEntity(dto);
@@ -29,8 +29,8 @@ public class TechnicianService {
 
     // Update Technician
     public TechnicianResponseDTO updateTechnician(Integer id, TechnicianRequestDTO dto) {
-        if (!technicianRepository.existsById(id)) {
-            //throw new EntityNotFoundException("Technician not found with id: " + id);
+        if(!technicianRepository.existsById(id)){
+            throw new ResourceNotFoundException("Technician not found with id: " + id);
         }
         MaintenanceTechnician technician = technicianRepository.findByMaintenanceTechnicianId(id);
         technician.setName(dto.getName());
@@ -43,8 +43,8 @@ public class TechnicianService {
 
     // Delete Technician
     public void deleteTechnician(Integer id) {
-        if (!technicianRepository.existsById(id)) {
-            //throw new EntityNotFoundException("Technician not found with id: " + id);
+        if(!technicianRepository.existsById(id)){
+            throw new ResourceNotFoundException("Technician not found with id: " + id);
         }
         MaintenanceTechnician technician = technicianRepository.findByMaintenanceTechnicianId(id);
         technician.setIsActive(false);
@@ -83,7 +83,9 @@ public class TechnicianService {
 
     // Get Active Technicians By Specialization
     public List<TechnicianResponseDTO> getActiveTechniciansBySpecialization(String specialization) {
-
+        if(technicianRepository.findBySpecialization(specialization).isEmpty()) {
+            throw new ResourceNotFoundException("Technician not found with specialization: " + specialization);
+        }
         List<MaintenanceTechnician> technicians = technicianRepository.findBySpecializationAndIsActive(specialization);
         List<TechnicianResponseDTO> response = new ArrayList<>();
         for (MaintenanceTechnician technician : technicians) {

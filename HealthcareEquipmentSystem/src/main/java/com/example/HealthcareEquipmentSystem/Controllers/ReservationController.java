@@ -21,7 +21,7 @@ public class ReservationController {
 
     @PostMapping("/{staffId}")
     public ResponseEntity<ReservationResponseDTO> createReservation( @Valid @RequestBody ReservationRequestDTO reservationRequestDTO,
-            @PathVariable Integer staffId) {
+                                                                     @PathVariable Integer staffId) {
         return ResponseEntity.ok(reservationService.createReservation(reservationRequestDTO, staffId));
     }
 

@@ -17,6 +17,7 @@ public class ReservationResponseDTO {
     private LocalTime endTime;
     private String purpose;
     private String status;
+    private Boolean isActive;
     private Integer staffId;
     private String staffName;
     private Integer equipmentId;
@@ -31,14 +32,15 @@ public class ReservationResponseDTO {
         dto.setEndTime(reservation.getEndTime());
         dto.setPurpose(reservation.getPurpose());
         dto.setStatus(reservation.getStatus());
+        dto.setIsActive(reservation.getIsActive());
         if (reservation.getLaboratoryStaff() != null) {
             dto.setStaffId(reservation.getLaboratoryStaff().getId());
             dto.setStaffName(reservation.getLaboratoryStaff().getName());
         }
-       /* if (reservation.getEquipment() != null) {
+        if (reservation.getEquipment() != null) {
             dto.setEquipmentId(reservation.getEquipment().getId());
             dto.setEquipmentName(reservation.getEquipment().getName());
-        }*/
+        }
         return dto;
     }
 }

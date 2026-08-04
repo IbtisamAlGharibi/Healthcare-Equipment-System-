@@ -3,6 +3,7 @@ package com.example.HealthcareEquipmentSystem.Services;
 import com.example.HealthcareEquipmentSystem.DTO.Requests.LaboratoryStaffRequestDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.LaboratoryStaffResponseDTO;
 import com.example.HealthcareEquipmentSystem.Entities.LaboratoryStaff;
+import com.example.HealthcareEquipmentSystem.Exceptions.ResourceNotFoundException;
 import com.example.HealthcareEquipmentSystem.Repositories.LaboratoryStaffRepository;
 import com.example.HealthcareEquipmentSystem.Repositories.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class LaboratoryStaffService {
     }
 
     public LaboratoryStaffResponseDTO updateLaboratoryStaff(Integer id, LaboratoryStaffRequestDTO laboratoryStaffRequestDTO) {
+        if(!laboratoryStaffRepository.existsById(id)){
+            throw new ResourceNotFoundException("laboratory Staff not found with id: " + id);
+        }
         LaboratoryStaff updatedLaboratoryStaff = laboratoryStaffRepository.findByLaboratoryStaffId(id);
         updatedLaboratoryStaff.setName(laboratoryStaffRequestDTO.getName());
         updatedLaboratoryStaff.setPhone(laboratoryStaffRequestDTO.getPhone());
@@ -40,9 +44,13 @@ public class LaboratoryStaffService {
     }
 
     public void deleteLaboratoryStaff(Integer id){
-        LaboratoryStaff deletedLaboratoryStaff = laboratoryStaffRepository.findByLaboratoryStaffId(id);
-        deletedLaboratoryStaff.setIsActive(false);
-        laboratoryStaffRepository.save(deletedLaboratoryStaff);
+
+        if(!laboratoryStaffRepository.existsById(id)){
+            throw new ResourceNotFoundException("laboratory Staff not found with id: " + id);
+        }
+        LaboratoryStaff laboratoryStaff = laboratoryStaffRepository.findByLaboratoryStaffId(id);
+        laboratoryStaff.setIsActive(false);
+        laboratoryStaffRepository.save(laboratoryStaff);
     }
     public LaboratoryStaffResponseDTO getLaboratoryStaffById(Integer id) {
         LaboratoryStaff laboratoryStaff = laboratoryStaffRepository.findByLaboratoryStaffId(id);

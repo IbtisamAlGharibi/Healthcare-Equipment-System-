@@ -52,7 +52,9 @@ public class LaboratoryService {
         updatedLaboratory.setName(laboratoryRequestDTO.getName());
         updatedLaboratory.setLocation(laboratoryRequestDTO.getLocation());
         updatedLaboratory.setDescription(laboratoryRequestDTO.getDescription());
-        updatedLaboratory.setIsActive(laboratoryRequestDTO.getIsActive());
+        if (laboratoryRequestDTO.getIsActive() != null) {
+            updatedLaboratory.setIsActive(laboratoryRequestDTO.getIsActive());
+        }
 
         Laboratory savedLaboratory = laboratoryRepository.save(updatedLaboratory);
 
