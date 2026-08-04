@@ -21,6 +21,7 @@ public class Maintenance {
     private String status;
     private Integer technicianId;
     private Integer equipmentId;
+    private Boolean isActive;
 
     @ManyToOne
     @JoinColumn(name = "tech_id")

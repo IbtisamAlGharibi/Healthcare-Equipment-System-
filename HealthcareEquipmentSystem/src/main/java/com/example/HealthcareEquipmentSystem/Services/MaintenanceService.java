@@ -5,6 +5,7 @@ import com.example.HealthcareEquipmentSystem.DTO.Responses.MaintenanceResponseDT
 import com.example.HealthcareEquipmentSystem.Entities.Equipment;
 import com.example.HealthcareEquipmentSystem.Entities.Maintenance;
 import com.example.HealthcareEquipmentSystem.Entities.MaintenanceTechnician;
+import com.example.HealthcareEquipmentSystem.Exceptions.ResourceNotFoundException;
 import com.example.HealthcareEquipmentSystem.Repositories.EquipmentRepository;
 import com.example.HealthcareEquipmentSystem.Repositories.MaintenanceRepository;
 import com.example.HealthcareEquipmentSystem.Repositories.TechnicianRepository;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,13 +32,23 @@ public class MaintenanceService {
     //  Create Maintenance
     public MaintenanceResponseDTO createMaintenance(MaintenanceRequestDTO dto) {
 
-        Equipment equipment = equipmentRepository.findById(dto.getEquipmentId()).get();
+        Equipment equipment = equipmentRepository.findByEquipmentId(dto.getEquipmentId());
+        if (equipment == null) {
+            throw new ResourceNotFoundException("Equipment not found with id: " + dto.getEquipmentId());
+        }
+
+        MaintenanceTechnician technician = technicianRepository.findByMaintenanceTechnicianId(dto.getTechnicianId());
+        if (technician == null) {
+            throw new ResourceNotFoundException("Technician not found with id: " + dto.getTechnicianId());
+        }
+
         Maintenance maintenance = MaintenanceRequestDTO.toEntity(dto);
-        MaintenanceTechnician technician=technicianRepository.findById(dto.getTechnicianId()).get();
         maintenance.setEquipment(equipment);
         maintenance.setTechnician(technician);
-        equipment.setStatus("UNDER_MAINTENANCE");
+        maintenance.setStatus("UNDER-MAINTENANCE");
+        equipment.setStatus("MAINTENANCE");
         technician.setIsActive(true);
+
         equipmentRepository.save(equipment);
         technicianRepository.save(technician);
         Maintenance saved = maintenanceRepository.save(maintenance);
@@ -47,54 +59,87 @@ public class MaintenanceService {
     public MaintenanceResponseDTO completeMaintenance(Integer id) {
 
         Maintenance maintenance = maintenanceRepository.findByMaintenanceId(id);
-        maintenance.setStatus("COMPLETE");
-        Equipment equipment = maintenance.getEquipment();;
-        equipment.setStatus("AVAILABLE");
-        equipmentRepository.save(equipment);
+        if (maintenance == null) {
+            throw new ResourceNotFoundException("Maintenance record not found with id: " + id);
+        }
+
+        maintenance.setStatus("Completed");
+        Equipment equipment = maintenance.getEquipment();
+        if (equipment != null) {
+            equipment.setStatus("Available");
+            equipmentRepository.save(equipment);
+        }
+
         Maintenance updated = maintenanceRepository.save(maintenance);
         return MaintenanceResponseDTO.fromEntity(updated);
     }
 
     //  Get All Maintenance
     public List<MaintenanceResponseDTO> getAllMaintenance() {
-        return maintenanceRepository.findAll().stream().map(MaintenanceResponseDTO::fromEntity).toList();
+        List<Maintenance> maintenanceList = maintenanceRepository.getAllMaintenance();
+        List<MaintenanceResponseDTO> responseDTOList = new ArrayList<>();
+        for (Maintenance maintenance : maintenanceList) {
+            responseDTOList.add(MaintenanceResponseDTO.fromEntity(maintenance));
+        }
+        return responseDTOList;
     }
 
     //  Get Maintenance By ID
     public MaintenanceResponseDTO getMaintenanceById(Integer id) {
         Maintenance maintenance = maintenanceRepository.findByMaintenanceId(id);
+        if (maintenance == null) {
+            throw new ResourceNotFoundException("Maintenance record not found with id: " + id);
+        }
         return MaintenanceResponseDTO.fromEntity(maintenance);
     }
 
     // Get Maintenance By Status
     public List<MaintenanceResponseDTO> getMaintenanceByStatus(String status) {
-        return maintenanceRepository.findByStatus(status).stream().map(MaintenanceResponseDTO::fromEntity).toList();
+        List<Maintenance> maintenanceList = maintenanceRepository.findByStatus(status);
+        List<MaintenanceResponseDTO> responseDTOList = new ArrayList<>();
+        for (Maintenance maintenance : maintenanceList) {
+            responseDTOList.add(MaintenanceResponseDTO.fromEntity(maintenance));
+        }
+        return responseDTOList;
     }
-
     // Get Maintenance By Technician ID
     public List<MaintenanceResponseDTO> getMaintenanceByTechnicianId(Integer technicianId) {
-
-        return maintenanceRepository.findByTechnicianId(technicianId).stream().map(MaintenanceResponseDTO::fromEntity).toList();
+        List<Maintenance> maintenanceList = maintenanceRepository.findByTechnicianId(technicianId);
+        List<MaintenanceResponseDTO> responseDTOList = new ArrayList<>();
+        for (Maintenance maintenance : maintenanceList) {
+            responseDTOList.add(MaintenanceResponseDTO.fromEntity(maintenance));
+        }
+        return responseDTOList;
     }
 
     // Get Maintenance By Equipment ID
     public List<MaintenanceResponseDTO> getMaintenanceByEquipmentId(Integer equipmentId) {
-
-        return maintenanceRepository.findByEquipmentId(equipmentId).stream().map(MaintenanceResponseDTO::fromEntity).toList();
+        List<Maintenance> maintenanceList = maintenanceRepository.findByEquipmentId(equipmentId);
+        List<MaintenanceResponseDTO> responseDTOList = new ArrayList<>();
+        for (Maintenance maintenance : maintenanceList) {
+            responseDTOList.add(MaintenanceResponseDTO.fromEntity(maintenance));
+        }
+        return responseDTOList;
     }
 
     // Get Maintenance Between Two Dates
     public List<MaintenanceResponseDTO> getMaintenanceBetweenDates(LocalDate startDate, LocalDate endDate) {
-        return maintenanceRepository.findMaintenanceBetweenDates(startDate, endDate).stream().map(MaintenanceResponseDTO::fromEntity).toList();
+        List<Maintenance> maintenanceList = maintenanceRepository.findMaintenanceBetweenDates(startDate, endDate);
+        List<MaintenanceResponseDTO> responseDTOList = new ArrayList<>();
+        for (Maintenance maintenance : maintenanceList) {
+            responseDTOList.add(MaintenanceResponseDTO.fromEntity(maintenance));
+        }
+        return responseDTOList;
     }
 
     //  Delete Maintenance
     public void deleteMaintenance(Integer id) {
-        if (!maintenanceRepository.existsById(id)) {
-            //throw new EntityNotFoundException("Maintenance record not found with id: " + id);
+        Maintenance maintenance = maintenanceRepository.findByMaintenanceId(id);
+        if (maintenance == null) {
+            throw new ResourceNotFoundException("Maintenance record not found with id: " + id);
         }
-        Maintenance maintenance=maintenanceRepository.findByMaintenanceId(id);
-        maintenance.setStatus("PENDING");
+        maintenance.setIsActive(false);
+        maintenance.setStatus("CANCELLED");
         maintenanceRepository.save(maintenance);
     }
 }

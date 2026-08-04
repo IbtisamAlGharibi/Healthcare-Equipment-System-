@@ -17,6 +17,7 @@ public class MaintenanceResponseDTO {
     private String status;
     private Integer technicianId;
     private Integer equipmentId;
+    private Boolean isActive;
 
     public static MaintenanceResponseDTO fromEntity(Maintenance entity){
         MaintenanceResponseDTO dto=new MaintenanceResponseDTO();
@@ -26,6 +27,7 @@ public class MaintenanceResponseDTO {
         dto.setStatus(entity.getStatus());
         dto.setTechnicianId(entity.getTechnicianId());
         dto.setEquipmentId(entity.getEquipmentId());
+        dto.setIsActive(entity.getIsActive());
 
         return dto;
     }

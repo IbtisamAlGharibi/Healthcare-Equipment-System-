@@ -4,22 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bcc91a11-30f4-4951-8c29-5cc8661b524c" name="Changes" comment="">
+    <list default="true" id="60efbe72-d2d1-458a-8ba6-bb7a06f44ed8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Controllers/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/DTO/Responses/MaintenanceResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/DTO/Responses/MaintenanceResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Entities/Maintenance.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Entities/Maintenance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Repositories/MaintenanceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Repositories/MaintenanceRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Services/MaintenanceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/HealthcareEquipmentSystem/src/main/java/com/example/HealthcareEquipmentSystem/Services/MaintenanceService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Interface" />
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -32,54 +29,55 @@
     </option>
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 5
+  &quot;associatedIndex&quot;: 8
 }</component>
-  <component name="ProjectId" id="3H843MJkSTtBJqwC4o2MBt3DtWL" />
+  <component name="ProjectId" id="3HPYwN34kXYE7UjB4fXY0SBnvk1" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.HealthcareEquipmentSystemApplication.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "Spring Boot.HealthcareEquipmentSystemApplication.executor": "Run",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "Updated-User-Roles",
-    "ignore.virus.scanning.warn.message": "true",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Codeline/Desktop/MyTasks/FINAL PROJECT/Project version3/Healthcare-Equipment-System-",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+    "last_opened_file_path": "C:/Users/Ibtisam/Downloads/Project/Healthcare-Equipment-System-"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="HealthcareEquipmentSystemApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+      <envs>
+        <env name="DB_URL" value="jdbc:mysql://localhost:3306/HealthCareEquipmentSystemdb?createDatabaseIfNotExist=true&amp;useSSL=false&amp;serverTimezone=UTC" />
+        <env name="DB_USERNAME" value="root" />
+        <env name="DB_PASSWORD" value="1234" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="com.example.HealthcareEquipmentSystem.HealthcareEquipmentSystemApplication" />
+      <module name="HealthcareEquipmentSystem" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.31033.145" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="bcc91a11-30f4-4951-8c29-5cc8661b524c" name="Changes" comment="" />
-      <created>1785236161245</created>
+      <changelist id="60efbe72-d2d1-458a-8ba6-bb7a06f44ed8" name="Changes" comment="" />
+      <created>1785771408400</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1785236161245</updated>
+      <updated>1785771408400</updated>
     </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="org.springframework.beans.factory.BeanCreationException" package="org.springframework.beans.factory" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

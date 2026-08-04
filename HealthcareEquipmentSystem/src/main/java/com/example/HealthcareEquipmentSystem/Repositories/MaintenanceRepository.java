@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface MaintenanceRepository extends JpaRepository<Maintenance, Integer> {
+    @Query("SELECT M FROM Maintenance M")
+    List<Maintenance> getAllMaintenance();
     @Query("SELECT M FROM Maintenance M WHERE M.status=:status")
     List<Maintenance> findByStatus(@Param("status") String status);
     @Query("select M from Maintenance M where M.id=:id ")
