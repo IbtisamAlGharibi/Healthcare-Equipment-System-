@@ -52,18 +52,9 @@ public class ReportService {
     public List<Reservation> reservationsPerLaboratory() {
         return reservationRepository.getAllReservation();
     }
-
-    public List<Reservation> staffWithMostReservations() {
-        return reservationRepository.staffWithMostReservations();
-    }
-
     public List<Maintenance> equipmentRepairedThisMonth(LocalDate startDate,
                                                         LocalDate endDate) {
 
         return maintenanceRepository.findMaintenanceBetweenDates(startDate, endDate);
-    }
-
-    public List<Object[]> technicianWithMostCompletedMaintenance() {
-        return technicianRepository.technicianWithMostCompletedMaintenance();
     }
 }

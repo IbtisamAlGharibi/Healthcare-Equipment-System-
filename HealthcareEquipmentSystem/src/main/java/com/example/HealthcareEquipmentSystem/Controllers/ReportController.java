@@ -58,21 +58,10 @@ public class ReportController {
         return ResponseEntity.ok(laboratories);
     }
 
-    @GetMapping("/staff/top-reservations")
-    public ResponseEntity<List<Reservation>> getStaffWithMostReservations() {
-        List<Reservation> staffList = reportService.staffWithMostReservations();
-        return ResponseEntity.ok(staffList);
-    }
-
     @GetMapping("/maintenance/repaired-this-month")
     public ResponseEntity<List<Maintenance>> getEquipmentRepairedThisMonth(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
         List<Maintenance> maintenanceList = reportService.equipmentRepairedThisMonth(startDate, endDate);
         return ResponseEntity.ok(maintenanceList);
     }
 
-    @GetMapping("/technician/top-maintenance")
-    public ResponseEntity<List<Object[]>> getTechnicianWithMostCompletedMaintenance() {
-        List<Object[]> technicians = reportService.technicianWithMostCompletedMaintenance();
-        return ResponseEntity.ok(technicians);
-    }
 }
