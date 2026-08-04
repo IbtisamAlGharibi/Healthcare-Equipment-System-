@@ -23,7 +23,6 @@ A full-stack web application for managing laboratory equipment reservations, mai
 - [Security](#security)
 - [Future Improvements](#future-improvements)
 - [Team Members](#team-members)
-- [License](#license)
  
 ---
  
@@ -346,8 +345,3 @@ Open `index.html` directly in a browser, or serve it with a local static server 
 | Maathier Ahmed Mahfoodh Al Nabhani |
 | Wejdan Salim Suwaid Al Subhi |
  
----
- 
-# License
- 
-This project was developed as part of a full-stack software engineering academic project. It is intended for educational purposes and is not licensed for commercial use unless otherwise stated by the authors.
