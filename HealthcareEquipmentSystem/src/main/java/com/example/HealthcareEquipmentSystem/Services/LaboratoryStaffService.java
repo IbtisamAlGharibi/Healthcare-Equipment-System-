@@ -22,14 +22,14 @@ public class LaboratoryStaffService {
         this.laboratoryStaffRepository = laboratoryStaffRepository;
         this.reservationRepository = reservationRepository;
     }
-
+    //add new laboratory staff
     public LaboratoryStaffResponseDTO addLaboratoryStaff(LaboratoryStaffRequestDTO laboratoryStaffRequestDTO) {
         LaboratoryStaff newLaboratoryStaff = laboratoryStaffRequestDTO.toEntity();
         newLaboratoryStaff.setIsActive(true);
         LaboratoryStaff savedLaboratoryStaff = laboratoryStaffRepository.save(newLaboratoryStaff);
         return LaboratoryStaffResponseDTO.fromEntity(savedLaboratoryStaff);
     }
-
+    //update laboratory staff information
     public LaboratoryStaffResponseDTO updateLaboratoryStaff(Integer id, LaboratoryStaffRequestDTO laboratoryStaffRequestDTO) {
         if(!laboratoryStaffRepository.existsById(id)){
             throw new ResourceNotFoundException("laboratory Staff not found with id: " + id);
@@ -42,9 +42,8 @@ public class LaboratoryStaffService {
         LaboratoryStaff savedLaboratoryStaff = laboratoryStaffRepository.save(updatedLaboratoryStaff);
         return LaboratoryStaffResponseDTO.fromEntity(savedLaboratoryStaff);
     }
-
+    //delete laboratory staff by id
     public void deleteLaboratoryStaff(Integer id){
-
         if(!laboratoryStaffRepository.existsById(id)){
             throw new ResourceNotFoundException("laboratory Staff not found with id: " + id);
         }
@@ -52,10 +51,12 @@ public class LaboratoryStaffService {
         laboratoryStaff.setIsActive(false);
         laboratoryStaffRepository.save(laboratoryStaff);
     }
+    //found laboratory staff by id
     public LaboratoryStaffResponseDTO getLaboratoryStaffById(Integer id) {
         LaboratoryStaff laboratoryStaff = laboratoryStaffRepository.findByLaboratoryStaffId(id);
         return LaboratoryStaffResponseDTO.fromEntity(laboratoryStaff);
     }
+    //return laboratory staff
     public List<LaboratoryStaffResponseDTO> getAllLaboratoryStaff() {
         List<LaboratoryStaff> laboratoryStaffList = laboratoryStaffRepository.findAll();
         List<LaboratoryStaffResponseDTO> responseDTOList = new ArrayList<>();
@@ -64,10 +65,12 @@ public class LaboratoryStaffService {
         }
         return responseDTOList;
     }
+    //found laboratory staff by name
     public LaboratoryStaffResponseDTO getLaboratoryStaffByName(String name) {
         LaboratoryStaff laboratoryStaff = laboratoryStaffRepository.findByLaboratoryStaffName(name);
         return LaboratoryStaffResponseDTO.fromEntity(laboratoryStaff);
     }
+    //return laboratory staff in each department
     public List<LaboratoryStaffResponseDTO> getLaboratoryStaffByDepartment(String department) {
         List<LaboratoryStaff> laboratoryStaffList = laboratoryStaffRepository.findByDepartment(department);
         List<LaboratoryStaffResponseDTO> responseDTOList = new ArrayList<>();
