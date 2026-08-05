@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reservations · Healthcare Equipment System</title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="reservations">
+  <div class="shell">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="main">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Scheduling</div>
+          <h1>Reservations</h1>
+          <p>Requests to use lab time, made by staff.</p>
+        </div>
+        <button class="btn btn-primary" id="btnAdd">+ New reservation</button>
+      </div>
+
+      <div class="toolbar">
+        <select id="filterStaff">
+          <option value="">All staff</option>
+        </select>
+        <select id="filterStatus">
+          <option value="">All statuses</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="Deleted">Deleted</option>
+        </select>
+        <label style="display:flex;align-items:center;gap:6px;font-size:13px;">
+          <input type="checkbox" id="filterActiveOnly" style="width:auto;" /> Active only
+        </label>
+        <button class="btn btn-secondary btn-sm" id="btnClearFilter">Clear</button>
+        <div class="spacer"></div>
+      </div>
+
+      <div class="panel">
+        <div class="table-wrap">
+          <table class="data">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Purpose</th>
+                <th>Staff</th>
+                <th>Equipment</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="resRows">
+              <tr class="loading-row"><td colspan="7">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="resModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>New reservation</h3>
+        <button class="modal-close" data-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="resForm">
+          <div class="field">
+            <label for="resStaff">Requested by</label>
+            <select id="resStaff" required></select>
+          </div>
+          <div class="field">
+            <label for="resEquip">Equipment</label>
+            <select id="resEquip" required></select>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="resDate">Date</label>
+              <input type="date" id="resDate" required />
+            </div>
+            <div class="field">
+              <label for="resPurpose">Purpose</label>
+              <input type="text" id="resPurpose" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="resStart">Start time</label>
+              <input type="time" id="resStart" required />
+            </div>
+            <div class="field">
+              <label for="resEnd">End time</label>
+              <input type="time" id="resEnd" required />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" data-close>Cancel</button>
+        <button class="btn btn-primary" id="resSaveBtn">Create reservation</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
