@@ -3,6 +3,7 @@ package com.example.HealthcareEquipmentSystem.Services;
 import com.example.HealthcareEquipmentSystem.Controllers.LaboratoryStaffController;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.*;
 import com.example.HealthcareEquipmentSystem.Entities.*;
+import com.example.HealthcareEquipmentSystem.Exceptions.BadRequestException;
 import com.example.HealthcareEquipmentSystem.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,9 +63,13 @@ public class ReportService {
     }
 
 
-    public List<Maintenance> equipmentRepairedThisMonth(LocalDate startDate,
-                                                        LocalDate endDate) {
-
+    public List<Maintenance> equipmentRepairedThisMonth(LocalDate startDate, LocalDate endDate) {
+        if (startDate == null || endDate == null) {
+            throw new BadRequestException("Start date and end date must not be null.");
+        }
+        if (startDate.isAfter(endDate)) {
+            throw new BadRequestException("Start date cannot be after end date.");
+        }
         return maintenanceRepository.findMaintenanceBetweenDates(startDate, endDate);
     }
 
