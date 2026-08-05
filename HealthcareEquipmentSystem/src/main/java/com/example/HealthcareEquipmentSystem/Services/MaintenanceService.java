@@ -5,9 +5,12 @@ import com.example.HealthcareEquipmentSystem.DTO.Responses.MaintenanceResponseDT
 import com.example.HealthcareEquipmentSystem.Entities.Equipment;
 import com.example.HealthcareEquipmentSystem.Entities.Maintenance;
 import com.example.HealthcareEquipmentSystem.Entities.MaintenanceTechnician;
+import com.example.HealthcareEquipmentSystem.Entities.Reservation;
+import com.example.HealthcareEquipmentSystem.Exceptions.BadRequestException;
 import com.example.HealthcareEquipmentSystem.Exceptions.ResourceNotFoundException;
 import com.example.HealthcareEquipmentSystem.Repositories.EquipmentRepository;
 import com.example.HealthcareEquipmentSystem.Repositories.MaintenanceRepository;
+import com.example.HealthcareEquipmentSystem.Repositories.ReservationRepository;
 import com.example.HealthcareEquipmentSystem.Repositories.TechnicianRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +44,16 @@ public class MaintenanceService {
         if (technician == null) {
             throw new ResourceNotFoundException("Technician not found with id: " + dto.getTechnicianId());
         }
+        if (equipment.getStatus().equalsIgnoreCase("Reserved")) {
+            throw new ResourceNotFoundException("Equipment with id:" + dto.getEquipmentId()+" is RESERVED");
+        }
 
+        if (Boolean.FALSE.equals(technician.getIsActive())) {
+            throw new BadRequestException("This technician member is not active.");
+        }
+        if (Boolean.FALSE.equals(equipment.getIsActive())) {
+            throw new BadRequestException("This equipment has been deleted.");
+        }
         Maintenance maintenance = MaintenanceRequestDTO.toEntity(dto);
         maintenance.setEquipment(equipment);
         maintenance.setTechnician(technician);
