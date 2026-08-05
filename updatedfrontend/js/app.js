@@ -820,13 +820,22 @@
        renderStaff([]);
      }
    }
-   
+   async function getMyStaffProfile() {
+    try {
+        return await api.get("/laboratory-staff/me");
+    } catch (err) {
+        toastError(err);
+        return null;
+    }
+}
    function onEditStaff(id) {
      const s = allStaff.find((x) => staffId(x) === id);
      if (!s) return;
      qs("#staffModalTitle").textContent = "Edit staff member";
      qs("#staffId").value = staffId(s);
      qs("#staffName").value = s.name || "";
+     qs("#staffUsername").value = s.username || "";
+     qs("#staffPassword").value = s.password || "";
      qs("#staffEmail").value = s.email || "";
      qs("#staffPhone").value = s.phone || "";
      qs("#staffDept").value = s.department || "";
@@ -847,11 +856,13 @@
    async function onSaveStaff() {
      const id = qs("#staffId").value;
      const payload = {
-       name: qs("#staffName").value.trim(),
-       email: qs("#staffEmail").value.trim(),
-       phone: qs("#staffPhone").value.trim(),
-       department: qs("#staffDept").value.trim(),
-     };
+      username: qs("#staffUsername").value.trim(),
+      password: qs("#staffPassword").value,
+      name: qs("#staffName").value.trim(),
+      email: qs("#staffEmail").value.trim(),
+      phone: qs("#staffPhone").value.trim(),
+      department: qs("#staffDept").value.trim(),
+  };
      if (!payload.name || !payload.email || !payload.phone || !payload.department) {
        toast("All fields are required.", "error");
        return;
@@ -923,6 +934,7 @@
       let allStaffForSelect = [];
       let allEquipForResSelect = [];
       let resActiveOnly = false;
+      let resStatusFilter = "";
       
       function resId(r) {
         return r.id;
@@ -930,6 +942,20 @@
       
       function applyResActiveFilter(list) {
         return resActiveOnly ? (list || []).filter((r) => r.isActive !== false) : list;
+      }
+      
+      function applyResStatusFilter(list) {
+        if (!resStatusFilter) return list;
+        if (resStatusFilter === "Deleted") {
+          return (list || []).filter((r) => r.isActive === false);
+        }
+        return (list || []).filter(
+          (r) => r.isActive !== false && (r.status || "").toLowerCase() === resStatusFilter.toLowerCase()
+        );
+      }
+      
+      function applyResFilters(list) {
+        return applyResStatusFilter(applyResActiveFilter(list));
       }
       
       /* REPLACED: Updated renderReservations with proper whitespacing & inline button safety */
@@ -974,10 +1000,28 @@
       }
       
       async function loadStaffForSelect() {
+        const user = currentUser();
+
+if (user?.role === "LAB_STAFF") {
+    const myStaff = await getMyStaffProfile();
+
+    allStaffForSelect = [myStaff];
+
+    qs("#resStaff").innerHTML =
+        `<option value="${myStaff.id}">${escapeHtml(myStaff.name)}</option>`;
+
+    qs("#filterStaff").innerHTML =
+        `<option value="${myStaff.id}">${escapeHtml(myStaff.name)}</option>`;
+
+    return;
+}
         try {
           allStaffForSelect = await api.get("/laboratory-staff");
           const opts = allStaffForSelect
-            .map((s) => `<option value="${s.id}">${escapeHtml(s.name)}</option>`)
+            .map((s) => {
+              const label = s.department ? `${s.name} (${s.department})` : s.name;
+              return `<option value="${s.id}">${escapeHtml(label)}</option>`;
+            })
             .join("");
           qs("#resStaff").innerHTML = opts;
           qs("#filterStaff").innerHTML = `<option value="">All staff</option>` + opts;
@@ -997,18 +1041,49 @@
         }
       }
       
-      async function loadReservations() {
+      /*async function loadReservations() {
         const staffId = qs("#filterStaff").value;
         try {
           allReservations = staffId
             ? await api.get(`/reservations/staff/${staffId}`)
             : await api.get("/reservations");
-          renderReservations(applyResActiveFilter(allReservations));
+          renderReservations(applyResFilters(allReservations));
         } catch (err) {
           toastError(err);
           renderReservations([]);
         }
-      }
+      }*/
+        async function loadReservations() {
+          const user = currentUser();
+        
+          try {
+        
+            // If the logged-in user is a Laboratory Staff
+            if (user?.role === "LAB_STAFF") {
+        
+              // Get the logged-in staff profile
+              const myStaff = await getMyStaffProfile();
+        
+              // Load only this staff's reservations
+              allReservations = await api.get(`/reservations/staff/${myStaff.id}`);
+        
+            } else {
+        
+              // Existing behavior for Admin (and other roles)
+              const staffId = qs("#filterStaff").value;
+        
+              allReservations = staffId
+                ? await api.get(`/reservations/staff/${staffId}`)
+                : await api.get("/reservations");
+            }
+        
+            renderReservations(applyResFilters(allReservations));
+        
+          } catch (err) {
+            toastError(err);
+            renderReservations([]);
+          }
+        }
       
       /* REPLACED: Updated action functions to use finally blocks */
       async function onApprove(id) {
@@ -1071,6 +1146,10 @@
       
       document.addEventListener("DOMContentLoaded", () => {
         if (document.body.dataset.page !== "reservations") return;
+        const user = currentUser();
+       if (user?.role === "LAB_STAFF") {
+         qs("#filterStaff").parentElement.style.display = "none";
+        }
         loadStaffForSelect().then(loadReservations);
         loadEquipmentForResSelect();
       
@@ -1085,14 +1164,20 @@
         );
         qs("#resSaveBtn").addEventListener("click", onSaveRes);
         qs("#filterStaff").addEventListener("change", loadReservations);
+        qs("#filterStatus").addEventListener("change", (e) => {
+          resStatusFilter = e.target.value;
+          renderReservations(applyResFilters(allReservations));
+        });
         qs("#filterActiveOnly").addEventListener("change", (e) => {
           resActiveOnly = e.target.checked;
-          renderReservations(applyResActiveFilter(allReservations));
+          renderReservations(applyResFilters(allReservations));
         });
       
         qs("#btnClearFilter").addEventListener("click", () => {
           qs("#filterStaff").value = "";
+          qs("#filterStatus").value = "";
           qs("#filterActiveOnly").checked = false;
+          resStatusFilter = "";
           resActiveOnly = false;
           loadReservations();
         });
@@ -1142,13 +1227,22 @@
        renderTechs([]);
      }
    }
-   
+   async function getMyTechnicianProfile() {
+    try {
+        return await api.get("/api/technician/me");
+    } catch (err) {
+        toastError(err);
+        return null;
+    }
+}
    function onEditTech(id) {
      const t = allTechs.find((x) => techId(x) === id);
      if (!t) return;
      qs("#techModalTitle").textContent = "Edit technician";
      qs("#techId").value = techId(t);
      qs("#techName").value = t.name || "";
+     qs("#techUsername").value = t.username || "";
+     qs("#techPassword").value = t.password || "";
      qs("#techPhone").value = t.phone || "";
      qs("#techSpec").value = t.specialization || "";
      openModal("techModal");
@@ -1168,10 +1262,12 @@
    async function onSaveTech() {
      const id = qs("#techId").value;
      const payload = {
-       name: qs("#techName").value.trim(),
-       phone: qs("#techPhone").value.trim(),
-       specialization: qs("#techSpec").value.trim(),
-     };
+      username: qs("#techUsername").value.trim(),
+      password: qs("#techPassword").value,
+      name: qs("#techName").value.trim(),
+      phone: qs("#techPhone").value.trim(),
+      specialization: qs("#techSpec").value.trim(),
+  };
      if (!payload.name || !payload.phone || !payload.specialization) {
        toast("Name, phone, and specialization are required.", "error");
        return;
@@ -1297,16 +1393,31 @@
        toastError(err);
      }
      try {
-       allTechForSelect = await api.get("/api/technician/all");
-       qs("#maintTech").innerHTML = allTechForSelect
-         .map((t) => `<option value="${t.id}">${escapeHtml(t.name)}</option>`)
-         .join("");
+      const user = currentUser();
+
+      if (user?.role === "TECHNICIAN") {
+      
+          const myTech = await getMyTechnicianProfile();
+      
+          allTechForSelect = [myTech];
+      
+          qs("#maintTech").innerHTML =
+              `<option value="${myTech.id}">${escapeHtml(myTech.name)}</option>`;
+      
+      } else {
+      
+          allTechForSelect = await api.get("/api/technician/all");
+      
+          qs("#maintTech").innerHTML = allTechForSelect
+              .map((t) => `<option value="${t.id}">${escapeHtml(t.name)}</option>`)
+              .join("");
+      }
      } catch (err) {
        toastError(err);
      }
    }
    
-   async function loadMaint() {
+   /*async function loadMaint() {
      const status = qs("#filterStatus").value;
      try {
        allMaint = status
@@ -1317,7 +1428,42 @@
        toastError(err);
        renderMaint([]);
      }
-   }
+   }*/
+     async function loadMaint() {
+      const status = qs("#filterStatus").value;
+      const user = currentUser();
+    
+      try {
+    
+        if (user?.role === "TECHNICIAN") {
+    
+          // Get the logged-in technician
+          const myTech = await getMyTechnicianProfile();
+    
+          // Load all maintenance records (or by status)
+          allMaint = status
+            ? await api.get(`/api/maintenances/status/${status}`)
+            : await api.get("/api/maintenances/all");
+    
+          // Keep only this technician's records
+          allMaint = allMaint.filter(m => m.technicianId === myTech.id);
+    
+        } else {
+    
+          // Existing behavior for Admin
+          allMaint = status
+            ? await api.get(`/api/maintenances/status/${status}`)
+            : await api.get("/api/maintenances/all");
+    
+        }
+    
+        renderMaint(allMaint);
+    
+      } catch (err) {
+        toastError(err);
+        renderMaint([]);
+      }
+    }
    
    async function onComplete(id) {
      try {
