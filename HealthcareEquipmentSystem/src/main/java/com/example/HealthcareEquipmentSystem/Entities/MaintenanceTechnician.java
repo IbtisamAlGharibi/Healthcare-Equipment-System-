@@ -24,4 +24,7 @@ public class MaintenanceTechnician {
     @OneToMany(mappedBy="technician", cascade= CascadeType.ALL)
     private List<Maintenance> maintenances;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
 }

@@ -3,9 +3,12 @@ package com.example.HealthcareEquipmentSystem.Services;
 import com.example.HealthcareEquipmentSystem.DTO.Requests.TechnicianRequestDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.TechnicianResponseDTO;
 import com.example.HealthcareEquipmentSystem.Entities.MaintenanceTechnician;
+import com.example.HealthcareEquipmentSystem.Exceptions.BadRequestException;
 import com.example.HealthcareEquipmentSystem.Exceptions.ResourceNotFoundException;
 import com.example.HealthcareEquipmentSystem.Repositories.TechnicianRepository;
+import com.example.HealthcareEquipmentSystem.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,15 +17,24 @@ import java.util.List;
 @Service
 public class TechnicianService {
     private TechnicianRepository technicianRepository;
+    private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public TechnicianService(TechnicianRepository technicianRepository) {
+    public TechnicianService(TechnicianRepository technicianRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.technicianRepository = technicianRepository;
+        this.userRepository= userRepository;
+        this.passwordEncoder=passwordEncoder;
     }
     // Add Technician
     public TechnicianResponseDTO addTechnician(TechnicianRequestDTO dto) {
+        if (userRepository.findByUsername(dto.getUsername()).isPresent()) {
+            throw new BadRequestException("Username is already taken");
+        }
         MaintenanceTechnician technician = TechnicianRequestDTO.toEntity(dto);
         technician.setIsActive(true);
+        technician.getUser().setPassword(passwordEncoder.encode(technician.getUser().getPassword()));
+
         MaintenanceTechnician savedTechnician = technicianRepository.save(technician);
         return TechnicianResponseDTO.fromEntity(savedTechnician);
     }
@@ -97,6 +109,13 @@ public class TechnicianService {
     //Get Technician By ID
     public TechnicianResponseDTO getTechnicianById(Integer id) {
         MaintenanceTechnician technician = technicianRepository.findByMaintenanceTechnicianId(id);
+        return TechnicianResponseDTO.fromEntity(technician);
+    }
+    public TechnicianResponseDTO getMyProfile(String username) {
+        MaintenanceTechnician technician = technicianRepository.findByUserUsername(username);
+        if (technician == null) {
+            throw new ResourceNotFoundException("No technician profile linked to this account.");
+        }
         return TechnicianResponseDTO.fromEntity(technician);
     }
 }

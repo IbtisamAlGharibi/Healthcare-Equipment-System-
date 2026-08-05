@@ -3,10 +3,13 @@ package com.example.HealthcareEquipmentSystem.Services;
 import com.example.HealthcareEquipmentSystem.DTO.Requests.LaboratoryStaffRequestDTO;
 import com.example.HealthcareEquipmentSystem.DTO.Responses.LaboratoryStaffResponseDTO;
 import com.example.HealthcareEquipmentSystem.Entities.LaboratoryStaff;
+import com.example.HealthcareEquipmentSystem.Exceptions.BadRequestException;
 import com.example.HealthcareEquipmentSystem.Exceptions.ResourceNotFoundException;
 import com.example.HealthcareEquipmentSystem.Repositories.LaboratoryStaffRepository;
 import com.example.HealthcareEquipmentSystem.Repositories.ReservationRepository;
+import com.example.HealthcareEquipmentSystem.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,16 +19,26 @@ import java.util.List;
 public class LaboratoryStaffService {
     LaboratoryStaffRepository laboratoryStaffRepository;
     ReservationRepository reservationRepository;
+    UserRepository userRepository;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
-    public LaboratoryStaffService(LaboratoryStaffRepository laboratoryStaffRepository, ReservationRepository reservationRepository) {
+    public LaboratoryStaffService(LaboratoryStaffRepository laboratoryStaffRepository, ReservationRepository reservationRepository,
+                                  UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.laboratoryStaffRepository = laboratoryStaffRepository;
         this.reservationRepository = reservationRepository;
+        this.userRepository= userRepository;
+        this.passwordEncoder= passwordEncoder;
     }
     //add new laboratory staff
+
     public LaboratoryStaffResponseDTO addLaboratoryStaff(LaboratoryStaffRequestDTO laboratoryStaffRequestDTO) {
+        if (userRepository.findByUsername(laboratoryStaffRequestDTO.getUsername()).isPresent()) {
+            throw new BadRequestException("Username is already taken");
+        }
         LaboratoryStaff newLaboratoryStaff = laboratoryStaffRequestDTO.toEntity();
         newLaboratoryStaff.setIsActive(true);
+        newLaboratoryStaff.getUser().setPassword(passwordEncoder.encode(newLaboratoryStaff.getUser().getPassword()));
         LaboratoryStaff savedLaboratoryStaff = laboratoryStaffRepository.save(newLaboratoryStaff);
         return LaboratoryStaffResponseDTO.fromEntity(savedLaboratoryStaff);
     }
@@ -68,6 +81,13 @@ public class LaboratoryStaffService {
     //found laboratory staff by name
     public LaboratoryStaffResponseDTO getLaboratoryStaffByName(String name) {
         LaboratoryStaff laboratoryStaff = laboratoryStaffRepository.findByLaboratoryStaffName(name);
+        return LaboratoryStaffResponseDTO.fromEntity(laboratoryStaff);
+    }
+    public LaboratoryStaffResponseDTO getMyProfile(String username) {
+        LaboratoryStaff laboratoryStaff = laboratoryStaffRepository.findByUserUsername(username);
+        if (laboratoryStaff == null) {
+            throw new ResourceNotFoundException("No laboratory staff profile linked to this account.");
+        }
         return LaboratoryStaffResponseDTO.fromEntity(laboratoryStaff);
     }
     //return laboratory staff in each department

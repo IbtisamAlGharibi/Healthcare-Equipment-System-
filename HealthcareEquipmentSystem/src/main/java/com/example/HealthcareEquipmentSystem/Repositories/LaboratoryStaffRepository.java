@@ -19,4 +19,7 @@ public interface LaboratoryStaffRepository extends JpaRepository<LaboratoryStaff
 
     @Query("select ls from LaboratoryStaff ls where ls.isActive=true and ls.department =:department")
     List<LaboratoryStaff> findByDepartment(@Param("department") String department);
+
+    @Query("select ls from LaboratoryStaff ls where ls.isActive=true and ls.user.username =:username")
+    LaboratoryStaff findByUserUsername(@Param("username") String username);
 }

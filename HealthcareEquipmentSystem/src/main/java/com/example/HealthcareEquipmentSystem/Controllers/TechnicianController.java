@@ -6,6 +6,7 @@ import com.example.HealthcareEquipmentSystem.Services.TechnicianService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,7 +61,11 @@ public class TechnicianController {
         List<TechnicianResponseDTO> response = technicianService.getActiveTechniciansBySpecialization(specialization);
         return ResponseEntity.ok(response);
     }
-
+    // Get the logged-in technician's own record (their linked profile only)
+    @GetMapping("/me")
+    public ResponseEntity<TechnicianResponseDTO> getMyProfile(Authentication authentication) {
+        return ResponseEntity.ok(technicianService.getMyProfile(authentication.getName()));
+    }
     @GetMapping("/{id}")
     public ResponseEntity<TechnicianResponseDTO> getTechnicianById(@PathVariable Integer id) {
         TechnicianResponseDTO response = technicianService.getTechnicianById(id);

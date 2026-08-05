@@ -23,4 +23,7 @@ public class LaboratoryStaff {
 
     @OneToMany(mappedBy = "laboratoryStaff", cascade = CascadeType.ALL)
     private List<Reservation> reservations = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
 }

@@ -15,6 +15,8 @@ public class LaboratoryStaffResponseDTO {
     private String phone;
     private String department;
     private Boolean isActive;
+    private Integer userId;
+    private String username;
 
     public static LaboratoryStaffResponseDTO fromEntity(LaboratoryStaff laboratoryStaff) {
         LaboratoryStaffResponseDTO dto = new LaboratoryStaffResponseDTO();

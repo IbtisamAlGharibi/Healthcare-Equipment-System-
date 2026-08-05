@@ -6,6 +6,7 @@ import com.example.HealthcareEquipmentSystem.Services.LaboratoryStaffService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,6 +38,11 @@ public class LaboratoryStaffController {
     public ResponseEntity<String> deleteLaboratoryStaff(@PathVariable Integer id) {
         laboratoryStaffService.deleteLaboratoryStaff(id);
         return ResponseEntity.ok("Laboratory staff deleted successfully.");
+    }
+    // Get the logged-in staff member's own record (their linked profile only)
+    @GetMapping("/me")
+    public ResponseEntity<LaboratoryStaffResponseDTO> getMyProfile(Authentication authentication) {
+        return ResponseEntity.ok(laboratoryStaffService.getMyProfile(authentication.getName()));
     }
 
     // Get laboratory staff by ID
